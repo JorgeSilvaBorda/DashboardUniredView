@@ -123,6 +123,7 @@
                                     </form>
                                 </div>
                             </li>
+                            <!-- mensajes antes de nombre de usuario -->
 
                             <div class="topbar-divider d-none d-sm-block"></div>
 
