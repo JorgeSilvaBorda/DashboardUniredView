@@ -45,11 +45,18 @@
 
     function procesarProgramadas() {
         var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+        var datos = {
+            tipo: 'rendiciones-programadas-dia',
+            fecha: fecha
+        };
         $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8082/proceso/dia/' + fecha,
-            success: function (procesos) {
-
+            type: 'POST',
+            url: 'RendicionesMapper',
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -97,11 +104,18 @@
 
     function procesarEjecutadas() {
         var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+        var datos = {
+            tipo: "rendiciones-ejecutadas-dia",
+            fecha: fecha
+        };
         $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8082/proceso/dia/' + fecha + "/ejecutados",
-            success: function (procesos) {
-
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -148,11 +162,18 @@
 
     function procesarExitosas() {
         var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+        var datos = {
+            tipo: "rendiciones-exitosas-dia",
+            fecha: fecha
+        };
         $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8082/proceso/dia/' + fecha + "/exitosos",
-            success: function (procesos) {
-
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -199,11 +220,19 @@
 
     function procesarErrores() {
         var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8082/proceso/dia/' + fecha + "/errores",
-            success: function (procesos) {
 
+        var datos = {
+            tipo: "rendiciones-errores-dia",
+            fecha: fecha
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -250,11 +279,18 @@
 
     function procesarPendientes() {
         var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+        var datos = {
+            tipo: "rendiciones-pendientes-dia",
+            fecha: fecha
+        };
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8082/proceso/dia/' + fecha + "/pendientes",
-            success: function (procesos) {
-
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -300,11 +336,19 @@
     }
 
     function mostrarSubprocesos(idProceso) {
-        console.log('http://localhost:8082/proceso/' + idProceso + '/subprocesos');
+        
+        var datos = {
+            tipo: "subprocesos-rendicion",
+            idProceso: idProceso
+        };
         $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8082/proceso/' + idProceso + '/subprocesos',
-            success: function (subProcesos) {
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var subProcesos = JSON.parse(response);
                 var tabla = TABDETALLE
                         + '<thead>'
                         + '<tr>'

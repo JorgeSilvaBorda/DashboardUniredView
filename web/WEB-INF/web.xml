@@ -4,9 +4,17 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>security.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RendicionesMapper</servlet-name>
+        <servlet-class>mapping.RendicionesMapper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RendicionesMapper</servlet-name>
+        <url-pattern>/RendicionesMapper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

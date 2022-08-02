@@ -10,11 +10,17 @@ $(document).ready(function () {
 });
 
 function getResumen() {
+    
+    var datos = {tipo: "resumen-rendiciones"};
+    
     $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8082/proceso/resumen',
-        success: function (resumen) {
-
+        type: 'POST',
+        url: 'RendicionesMapper',
+        data: {
+            datos: JSON.stringify(datos)
+        },
+        success: function (response) {
+            var resumen = JSON.parse(response);
             $('#programados-hoy').html(resumen.total);
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
@@ -96,11 +102,17 @@ function crearGrafico(porcentajeExitoso, porcentajeEspera, porcentajeError) {
 }
 
 function actualizar() {
+    
+    var datos = {tipo: "resumen-rendiciones"};
+    
     $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8082/proceso/resumen',
-        success: function (resumen) {
-
+        type: 'POST',
+        url: 'RendicionesMapper',
+        data: {
+            datos: JSON.stringify(datos)
+        },
+        success: function (response) {
+            var resumen = JSON.parse(response);
             $('#programados-hoy').html(resumen.total);
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
