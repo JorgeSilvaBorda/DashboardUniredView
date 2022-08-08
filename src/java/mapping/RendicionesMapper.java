@@ -33,17 +33,17 @@ public class RendicionesMapper extends HttpServlet {
 	switch(datos.getString("tipo")){
 	    case "resumen-rendiciones": out.print(getObjectFromUrl("http://localhost:8082/proceso/resumen"));
 	    break;
-	    case "rendiciones-programadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/" + datos.getString("fecha")));
+	    case "rendiciones-programadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/"));
 	    break;
-	    case "rendiciones-ejecutadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/" + datos.getString("fecha") + "/ejecutados"));
+	    case "rendiciones-ejecutadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/ejecutados"));
 	    break;
-	    case "rendiciones-exitosas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/" + datos.getString("fecha") + "/exitosos"));
+	    case "rendiciones-exitosas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/exitosos"));
 	    break;
-	    case "rendiciones-errores-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/" + datos.getString("fecha") + "/errores"));
+	    case "rendiciones-errores-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/errores"));
 	    break;
-	    case "rendiciones-pendientes-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/" + datos.getString("fecha") + "/pendientes"));
+	    case "rendiciones-pendientes-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/pendientes"));
 	    break;
-	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://localhost:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
+	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://localhost:8082/proceso/subprocesos"));
 	    break;
 	    default: out.print("{}");
 	    break;

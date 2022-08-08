@@ -1,5 +1,6 @@
 <%@include file="../head.jsp" %>
 <script src="js/demo/chart-pie-demo.js?=<% out.print(util.Util.generaRandom(10000, 99999)); %>"></script>
+<script type="text/javascript" src="modulos/dashboard-nominas.js?=<% out.print(util.Util.generaRandom(10000, 99999)); %>" ></script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 

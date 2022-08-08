@@ -44,10 +44,9 @@
     }
 
     function procesarProgramadas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+        
         var datos = {
-            tipo: 'rendiciones-programadas-dia',
-            fecha: fecha
+            tipo: 'rendiciones-programadas-dia'
         };
         $.ajax({
             type: 'POST',
@@ -103,10 +102,9 @@
     }
 
     function procesarEjecutadas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-ejecutadas-dia",
-            fecha: fecha
+            tipo: "rendiciones-ejecutadas-dia"
         };
         $.ajax({
             type: 'POST',
@@ -161,10 +159,9 @@
     }
 
     function procesarExitosas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-exitosas-dia",
-            fecha: fecha
+            tipo: "rendiciones-exitosas-dia"
         };
         $.ajax({
             type: 'POST',
@@ -219,11 +216,9 @@
     }
 
     function procesarErrores() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
 
         var datos = {
-            tipo: "rendiciones-errores-dia",
-            fecha: fecha
+            tipo: "rendiciones-errores-dia"
         };
         $.ajax({
             type: 'POST',
@@ -278,10 +273,9 @@
     }
 
     function procesarPendientes() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-pendientes-dia",
-            fecha: fecha
+            tipo: "rendiciones-pendientes-dia"
         };
         $.ajax({
             type: 'GET',

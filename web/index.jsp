@@ -66,7 +66,7 @@
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item" onclick="cargarModulo('dashboard-nominas', null);">
+                <li class="nav-item" id="btn-menu-nominas" onclick="cargarModulo('dashboard-nominas', null);">
                     <a class="nav-link collapsed" href="#">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Nóminas</span>
@@ -74,7 +74,7 @@
                 </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item" onclick="cargarModulo('dashboard-rendiciones', null);">
+                <li class="nav-item" id="btn-menu-rendiciones" onclick="cargarModulo('dashboard-rendiciones', null);">
                     <a class="nav-link collapsed" href="#" >
                         <i class="fas fa-fw fa-table"></i>
                         <span>Rendiciones</span>
@@ -156,7 +156,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Unired 2021</span>
+                            <span>Copyright &copy; Unired 2022</span>
                         </div>
                     </div>
                 </footer>
