@@ -9,3 +9,7 @@ $(document).ready(function () {
     }, 60000);
 
 });
+
+function actualizar(){
+    
+}
