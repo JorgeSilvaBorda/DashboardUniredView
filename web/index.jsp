@@ -5,6 +5,12 @@
 --%>
 
 <%@include file="head.jsp" %>
+<%
+    String nombreMostrar = "";
+    if(session.getAttribute("login") != null){
+        nombreMostrar = session.getAttribute("nombre") + " " + session.getAttribute("apellido");
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -130,7 +136,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jorge Silva</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><% out.print(nombreMostrar); %></span>
                                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->

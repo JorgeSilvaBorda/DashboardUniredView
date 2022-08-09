@@ -31,6 +31,9 @@ function getResumen() {
             $('#progress-ejecucion').css({"width": porcEjecucion + "%"});
             $('#progress-ejecucion').attr("aria-valuenow", porcEjecucion);
             $('#exitoso').html(resumen.exitoso);
+            $('#vacias').html(resumen.rendicionVacia);
+            $('#enviadasamail').html(resumen.enviadoAMail);
+            $('#exitoso').html(resumen.exitoso);
             $('#error').html(resumen.fallaEnProceso);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
             $('#tasa-error').html(tasaError + "%");

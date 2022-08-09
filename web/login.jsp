@@ -6,7 +6,6 @@
 
 <%
   session.invalidate();
-
 %>
 
 

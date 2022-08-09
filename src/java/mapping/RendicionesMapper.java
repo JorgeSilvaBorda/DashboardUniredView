@@ -30,6 +30,7 @@ public class RendicionesMapper extends HttpServlet {
         JSONObject datos = new JSONObject(request.getParameter("datos"));
 	PrintWriter out = response.getWriter();
 	
+	
 	switch(datos.getString("tipo")){
 	    case "resumen-rendiciones": out.print(getObjectFromUrl("http://localhost:8082/proceso/resumen"));
 	    break;
@@ -43,8 +44,13 @@ public class RendicionesMapper extends HttpServlet {
 	    break;
 	    case "rendiciones-pendientes-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/pendientes"));
 	    break;
-	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://localhost:8082/proceso/subprocesos"));
+	    case "rendiciones-vacias-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/vacias"));
 	    break;
+	    case "rendiciones-enviadas-mail-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/enviadasmail"));
+	    break;
+	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://localhost:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
+	    break;
+	    
 	    default: out.print("{}");
 	    break;
 	}
@@ -85,4 +91,5 @@ public class RendicionesMapper extends HttpServlet {
 	    return new JSONArray();
 	}
     }
+    
 }

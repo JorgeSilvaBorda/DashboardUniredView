@@ -11,6 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
+import javax.naming.Context;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
 import util.json.JSONObject;
 
 /**
@@ -33,7 +37,6 @@ public class Login extends HttpServlet {
 	//processRequest(request, response);
 	//String contenido = request.getParameter("datos");
 	JSONObject mensaje = new JSONObject(request.getParameter("datos"));
-	
 
 	switch (mensaje.getString("tipo")) {
 	    case "login":
@@ -50,17 +53,28 @@ public class Login extends HttpServlet {
 	String userName = json.getString("userName");
 	String password = json.getString("password");
 	//Acá valida usuario contra Active Directory. Implementar LDAP.
-	
-	
-	HttpSession session = request.getSession();
-	session.setAttribute("userName", json.getString("userName"));
 
+	LdapProtocol ldap = new LdapProtocol("DASHBOARD_AD_HOST", "DASHBOARD_AD_OU", "DASHBOARD_AD_DC_1", "DASHBOARD_AD_DC_2");
+	JSONObject usuario = ldap.getUserInfo(userName, password);
+	System.out.println(usuario);
 	JSONObject salida = new JSONObject();
-	salida.put("status", "ok");
+	if (usuario.getString("estadoLogin").equals("success")) {
+	    HttpSession session = request.getSession();
+	    
+	    session.setAttribute("userName", userName);
+	    session.setAttribute("nombre", usuario.getString("nombre"));
+	    session.setAttribute("apellido", usuario.getString("apellido"));
+	    session.setAttribute("login", usuario.getString("login"));
+	    System.out.println(usuario);
+	    salida.put("status", "ok");
+	}else{
+	    salida.put("status", "loginInvalido");
+	}
+	System.out.println(salida);
 	return salida;
     }
-    
-    private JSONObject logout(HttpServletRequest request){
+
+    private JSONObject logout(HttpServletRequest request) {
 	HttpSession session = request.getSession();
 	session.removeAttribute("userName");
 	session.invalidate();
