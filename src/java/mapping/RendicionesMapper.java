@@ -32,23 +32,23 @@ public class RendicionesMapper extends HttpServlet {
 	
 	
 	switch(datos.getString("tipo")){
-	    case "resumen-rendiciones": out.print(getObjectFromUrl("http://localhost:8082/proceso/resumen"));
+	    case "resumen-rendiciones": out.print(getObjectFromUrl("http://0.0.0.0:8082/proceso/resumen"));
 	    break;
-	    case "rendiciones-programadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/"));
+	    case "rendiciones-programadas-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/"));
 	    break;
-	    case "rendiciones-ejecutadas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/ejecutados"));
+	    case "rendiciones-ejecutadas-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecutados"));
 	    break;
-	    case "rendiciones-exitosas-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/exitosos"));
+	    case "rendiciones-exitosas-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/exitosos"));
 	    break;
-	    case "rendiciones-errores-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/errores"));
+	    case "rendiciones-errores-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/errores"));
 	    break;
-	    case "rendiciones-pendientes-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/pendientes"));
+	    case "rendiciones-pendientes-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/pendientes"));
 	    break;
-	    case "rendiciones-vacias-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/vacias"));
+	    case "rendiciones-vacias-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/vacias"));
 	    break;
-	    case "rendiciones-enviadas-mail-dia": out.print(getArrayFromUrl("http://localhost:8082/proceso/dia/enviadasmail"));
+	    case "rendiciones-enviadas-mail-dia": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/enviadasmail"));
 	    break;
-	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://localhost:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
+	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
 	    break;
 	    
 	    default: out.print("{}");
