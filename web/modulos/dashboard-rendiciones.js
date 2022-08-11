@@ -25,6 +25,7 @@ function getResumen() {
             $('#programados-hoy').html(resumen.total);
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
+            $('#ejecucion').html(resumen.enEjecucion);
             $('#espera').html(resumen.enEspera);
             var porcEjecucion = (((resumen.total - resumen.enEspera - resumen.pendiente) * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");
@@ -120,6 +121,7 @@ function actualizar() {
             $('#programados-hoy').html(resumen.total);
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
+            $('#ejecucion').html(resumen.enEjecucion);
             $('#espera').html(resumen.enEspera);
             var porcEjecucion = (((resumen.total - resumen.enEspera - resumen.pendiente) * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");

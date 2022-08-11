@@ -22,6 +22,9 @@ function login() {
                 }else if(obj.status === 'loginInvalido'){
                     
                     alert("Las credenciales ingresadas son inválidas. Por favor intente nuevamente.");
+                    $('#userName').val('');
+                    $('#password').val('');
+                    $('#userName').focus();
                 }
             },
             error: function (a, b, c) {
