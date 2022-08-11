@@ -49,18 +49,6 @@ public class LdapProtocol {
 		usuario.put("login", user);
 		usuario.put("nombre", attrs.get("givenname").get());
 		usuario.put("apellido", attrs.get("sn").get());
-		/*
-		System.out.println(attrs.get("distinguishedname"));
-		System.out.println(attrs.get("cn"));
-		System.out.println(attrs.get("givenname"));
-		System.out.println(attrs.get("fullname"));
-		System.out.println(attrs.get("displayname"));
-		System.out.println(attrs.get("name"));
-		System.out.println(attrs.get("lastname"));
-		System.out.println(attrs.get("sn"));
-		System.out.println(attrs.get("mail"));
-		System.out.println(attrs.get("telephonenumber"));
-		*/
 		System.out.println("Autenticación existosa");
 	    }
 	} catch (Exception ex) {

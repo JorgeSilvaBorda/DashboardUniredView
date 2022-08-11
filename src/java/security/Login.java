@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Properties;
-import javax.naming.Context;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import mapping.RendicionesMapper;
 import util.json.JSONObject;
 
 /**
@@ -50,14 +51,28 @@ public class Login extends HttpServlet {
     }
 
     private JSONObject login(JSONObject json, HttpServletRequest request) {
+	
 	String userName = json.getString("userName");
 	String password = json.getString("password");
-	//Acá valida usuario contra Active Directory. Implementar LDAP.
+	JSONObject salida = new JSONObject();
+	
+	//primero validar si el usuario está permitido
+	
+	JSONObject login = getObjectFromUrl("http://0.0.0.0:8082/usuario/" + userName);
+	System.out.println("http://0.0.0.0:8082/usuario/" + userName);
+	System.out.println(login);
+	if(!login.getString("login").equals(userName)){
+	    salida.put("status", "loginInvalido");
+	    return salida;
+	}
+	
+	
+	//Luego validar con LDAP contra Active Directory
 
 	LdapProtocol ldap = new LdapProtocol("DASHBOARD_AD_HOST", "DASHBOARD_AD_OU", "DASHBOARD_AD_DC_1", "DASHBOARD_AD_DC_2");
 	JSONObject usuario = ldap.getUserInfo(userName, password);
 	System.out.println(usuario);
-	JSONObject salida = new JSONObject();
+	
 	if (usuario.getString("estadoLogin").equals("success")) {
 	    HttpSession session = request.getSession();
 	    
@@ -81,6 +96,26 @@ public class Login extends HttpServlet {
 	JSONObject salida = new JSONObject();
 	salida.put("status", "ok");
 	return salida;
+    }
+    
+    private JSONObject getObjectFromUrl(String ruta){
+	try{
+	    URL url = new URL(ruta);
+	    HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	    con.setRequestMethod("GET");
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    String linea;
+	    StringBuilder mensaje = new StringBuilder();
+	    while((linea = reader.readLine()) != null){
+		mensaje.append(linea);
+	    }
+	    return new JSONObject(mensaje.toString());
+	    
+	}catch (Exception ex) {
+	    System.out.println(ex);
+	    ex.printStackTrace();
+	    return new JSONObject();
+	}
     }
 
 }

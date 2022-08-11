@@ -56,7 +56,7 @@ public class RendicionesMapper extends HttpServlet {
 	}
     } 
     
-    private JSONObject getObjectFromUrl(String ruta){
+    public static JSONObject getObjectFromUrl(String ruta){
 	try{
 	    URL url = new URL(ruta);
 	    HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -70,11 +70,12 @@ public class RendicionesMapper extends HttpServlet {
 	    return new JSONObject(mensaje.toString());
 	    
 	}catch (Exception ex) {
+	    System.out.println(ex);
 	    return new JSONObject();
 	}
     }
     
-    private JSONArray getArrayFromUrl(String ruta){
+    public static JSONArray getArrayFromUrl(String ruta){
 	try{
 	    URL url = new URL(ruta);
 	    HttpURLConnection con = (HttpURLConnection)url.openConnection();
