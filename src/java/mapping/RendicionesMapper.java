@@ -50,6 +50,10 @@ public class RendicionesMapper extends HttpServlet {
 	    break;
 	    case "rendiciones-en-ejecucion": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecucion"));
 	    break;
+	    case "rendiciones-generadas": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/generadas"));
+	    break;
+	    case "rendiciones-transmitidas": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/transmitidas"));
+	    break;
 	    case "subprocesos-rendicion": out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
 	    break;
 	    

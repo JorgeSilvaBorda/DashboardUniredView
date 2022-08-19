@@ -36,6 +36,8 @@ function getResumen() {
             $('#enviadasamail').html(resumen.enviadoAMail);
             $('#exitoso').html(resumen.exitoso);
             $('#error').html(resumen.fallaEnProceso);
+            $('#generado').html(resumen.generado);
+            $('#transmitido').html(resumen.transmitido);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
             $('#tasa-error').html(tasaError + "%");
             $('#progress-error').css({"width": tasaError + "%"});
