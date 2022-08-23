@@ -39,6 +39,9 @@ function getResumen() {
             $('#generado').html(resumen.generado);
             $('#transmitido').html(resumen.transmitido);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
+            if(isNaN(tasaError)){
+                tasaError = 0;
+            }
             $('#tasa-error').html(tasaError + "%");
             $('#progress-error').css({"width": tasaError + "%"});
             $('#progress-error').attr("aria-valuenow", tasaError);
@@ -137,6 +140,9 @@ function actualizar() {
             $('#generado').html(resumen.generado);
             $('#transmitido').html(resumen.transmitido);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
+            if(isNaN(tasaError)){
+                tasaError = 0;
+            }
             $('#tasa-error').html(tasaError + "%");
             $('#progress-error').css({"width": tasaError + "%"});
             $('#progress-error').attr("aria-valuenow", tasaError);
