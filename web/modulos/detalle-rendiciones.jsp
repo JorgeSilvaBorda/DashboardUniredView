@@ -14,6 +14,26 @@
 <script type="text/javascript" >
     var TAB = '<table class="table table-bordered table-hover" id="cont-tabla" width="100%" cellspacing="0" style="font-size: 12px;">'
     var TABDETALLE = '<table class="table table-bordered table-hover" id="cont-tabla-detalle" width="100%" cellspacing="0" style="font-size: 12px;">'
+    var OPCIONES_TABLA = {
+        "language": {
+            "lengthMenu": "Mostrando _MENU_ registros por página",
+            "zeroRecords": "No se han encontrado registros para la búsqueda",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No se han encontrado registros para la búsqueda",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar asendente por esta columna",
+                "sortDescending": ": activar para ordenar descendente por esta columna"
+            }
+        }
+    };
     $(document).ready(function () {
         procesarDetalle();
     });
@@ -98,7 +118,9 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                var optsTabla = OPCIONES_TABLA;
+                optsTabla.order=[[1, 'asc']]
+                $('#cont-tabla').DataTable(optsTabla);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -156,7 +178,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -213,7 +235,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -270,7 +292,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -327,7 +349,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -384,7 +406,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -441,7 +463,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -498,7 +520,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -507,7 +529,7 @@
             }
         });
     }
-    
+
     function procesarGeneradas() {
 
         var datos = {
@@ -555,7 +577,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -564,7 +586,7 @@
             }
         });
     }
-    
+
     function procesarTransmitidas() {
 
         var datos = {
@@ -612,7 +634,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
