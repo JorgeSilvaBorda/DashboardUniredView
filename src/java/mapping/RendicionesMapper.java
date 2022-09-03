@@ -66,6 +66,12 @@ public class RendicionesMapper extends HttpServlet {
 	    case "subprocesos-rendicion":
 		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
 		break;
+	    case "notificaciones":
+		out.print(getArrayFromUrl("http://0.0.0.0:8182/procesoprogramado/notificacion/noleido"));
+		break;
+	    case "notificaciones-marcar-leidas":
+		out.print(postObject("http://0.0.0.0:8182/procesoprogramado/notificaciones/marcarleido", datos.getJSONArray("ides").toString()));
+		break;
 
 	    default:
 		out.print("{}");
