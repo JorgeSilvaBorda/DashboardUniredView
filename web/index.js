@@ -2,7 +2,7 @@ var TAB = '<table class="table table-bordered table-hover" id="cont-tabla" width
 
 $(document).ready(function () {
     $('#contenido').load("modulos/dashboard-nominas.jsp");
-    
+    getNotificacionesProceso();
     //Hace polling cada un minuto para ver si hay nuevas alertas
     setInterval(function () {
         getNotificacionesProceso();
