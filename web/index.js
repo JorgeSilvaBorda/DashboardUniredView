@@ -43,7 +43,7 @@ function getNotificacionesProceso() {
     //Ir a buscar notificaciones de procesos demorados
     var datos = {tipo: "notificaciones"};
     $.ajax({
-        url: "RendicionesMapper",
+        url: "NotificacionesMapper",
         type: "POST",
         data: {
             datos: JSON.stringify(datos)
@@ -73,7 +73,7 @@ function getNotificacionesProceso() {
 function modalNotificaciones(notificaciones){
     //Si el modal no se está mostrando, se muestra.
     if(!$('#modalNotificaciones').hasClass("in")){
-        var tituloModal = "Demoras en proceso";
+        var tituloModal = "¡ATENCIÓN! - RETRASO  EN PROCESO";
         $('#tituloModalNotificaciones').html(tituloModal);
         
         var contenido = "Se ha detectado retraso en los siguientes procesos:";

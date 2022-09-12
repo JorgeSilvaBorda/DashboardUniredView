@@ -2,6 +2,10 @@ function getDetalleRendiciones(tipo) {
     cargarModulo("detalle-rendiciones", "tipo=" + tipo);
 }
 
+function getDetalleNominas(tipo) {
+    cargarModulo("detalle-nominas", "tipo=" + tipo);
+}
+
 function dateTimeToLocalDate(date, sep) {
     var fecha = new Date(date);
     return (fecha.getUTCDate() < 10 ? "0" : "") + fecha.getUTCDate() + sep + (fecha.getUTCMonth() < 9 ? "0" : "") + (fecha.getUTCMonth() + 1) + sep + fecha.getUTCFullYear();
