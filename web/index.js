@@ -73,11 +73,11 @@ function getNotificacionesProceso() {
 function modalNotificaciones(notificaciones){
     //Si el modal no se está mostrando, se muestra.
     if(!$('#modalNotificaciones').hasClass("in")){
-        var tituloModal = "¡ATENCIÓN! - RETRASO  EN PROCESO";
+        var tituloModal = "¡ATENCIÓN! - RETRASO EN PROCESOS";
         $('#tituloModalNotificaciones').html(tituloModal);
         
-        var contenido = "Se ha detectado retraso en los siguientes procesos:";
-        
+        var contenido = "<h2>Se ha detectado retraso en los siguientes procesos:</h2>";
+        //contenido += "<h3>Rendiciones:</h3>";
         var tabla = TAB;
         tabla += "<thead>";
         tabla += "<tr>";
