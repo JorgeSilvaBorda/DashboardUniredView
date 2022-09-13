@@ -16,6 +16,10 @@
         <servlet-name>NotificacionesMapper</servlet-name>
         <servlet-class>mapping.NotificacionesMapper</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HistoriaMapper</servlet-name>
+        <servlet-class>mapping.HistoriaMapper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>NotificacionesMapper</servlet-name>
         <url-pattern>/NotificacionesMapper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoriaMapper</servlet-name>
+        <url-pattern>/HistoriaMapper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
