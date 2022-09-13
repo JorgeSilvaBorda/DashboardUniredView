@@ -8,6 +8,14 @@
         <servlet-name>RendicionesMapper</servlet-name>
         <servlet-class>mapping.RendicionesMapper</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NominasMapper</servlet-name>
+        <servlet-class>mapping.NominasMapper</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NotificacionesMapper</servlet-name>
+        <servlet-class>mapping.NotificacionesMapper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>RendicionesMapper</servlet-name>
         <url-pattern>/RendicionesMapper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NominasMapper</servlet-name>
+        <url-pattern>/NominasMapper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotificacionesMapper</servlet-name>
+        <url-pattern>/NotificacionesMapper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

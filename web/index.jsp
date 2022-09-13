@@ -185,7 +185,7 @@
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="fas fa-exclamation fa-2x text-danger">&nbsp;</span>
+                        <!--span class="fas fa-exclamation fa-2x text-danger">&nbsp;</span-->
                         <h4 class="modal-title text-danger" id="tituloModalNotificaciones">Error en rendiciones</h4>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>

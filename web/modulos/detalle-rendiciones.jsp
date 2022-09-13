@@ -5,12 +5,6 @@
 
 <link href="vendor/datatables/dataTables.bootstrap4.min.css?=<% out.print(util.Util.generaRandom(10000, 99999)); %>" rel="stylesheet">
 
-<!-- Remover estos javascript -->
-
-<script type="text/javascript" src="modulos/muestras.js?=<% out.print(util.Util.generaRandom(10000, 99999)); %>"></script>
-
-<!-- /Remover -->
-
 <script type="text/javascript" >
     var TAB = '<table class="table table-bordered table-hover" id="cont-tabla" width="100%" cellspacing="0" style="font-size: 12px;">'
     var TABDETALLE = '<table class="table table-bordered table-hover" id="cont-tabla-detalle" width="100%" cellspacing="0" style="font-size: 12px;">'

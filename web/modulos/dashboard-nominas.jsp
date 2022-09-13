@@ -12,62 +12,10 @@
     </div>
 
     <!-- Content Row -->
+
+    <!-- Fila Porcentajes -->
     <div class="row">
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Procesos programados para hoy</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">200</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-secondary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
-                                Procesos ejecutados</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">98</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-play fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Procesos pendientes</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">102</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-pause fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-6 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -76,12 +24,12 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">49%</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="porcentaje-ejecucion"></div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                             style="width: 49%" aria-valuenow="49" aria-valuemin="0"
+                                        <div class="progress-bar bg-info" id="progress-ejecucion" role="progressbar"
+                                             style="width: 0%" aria-valuenow="0" aria-valuemin="0"
                                              aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -95,45 +43,7 @@
             </div>
         </div>
 
-    </div>
-    <!-- Content Row -->
-    <div class="row">
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Ejecuciones exitosas</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">90</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-star fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                Ejecuciones con error</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-6 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -142,13 +52,11 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">8%</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="tasa-error"></div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-warning" role="progressbar"
-                                             style="width: 8%" aria-valuenow="8" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" id="progress-error" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -160,10 +68,194 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- /Fila Porcentajes -->
+
+
+    <!-- Primera Fila de tarjetas -->
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('programadas')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Programados para hoy</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="programados-hoy"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('pendientes')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pendientes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="espera"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-pause fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('ejecutadas')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Ejecutados</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="ejecutados"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-play fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('exitosas')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Ejecuciones exitosas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="exitoso"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-star fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
+    <!-- /Primera Fila de tarjetas -->
+
+    <!-- Segunda Fila de tarjetas -->
+    <div class="row">
+
+        
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('errores')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Ejecuciones con error</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="error"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('norecibidas')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                No Recibidas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="norecibidas"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-expand fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('sinprocesar')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                Sin Procesar</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="sinprocesar"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-envelope-square fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('parcialmente')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                Recibidas Parcialmente</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="parcialmente"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-adjust fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /Segunda Fila de tarjetas -->
+
+    <!-- Tercera Fila de tarjetas -->
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body cursor-pointer" onclick="getDetalleNominas('noheaderfooter')">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                No cumple Header/Footer</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="noheaderfooter"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-code fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Tercera Fila de tarjetas -->
+
+
 
     <!-- Content Row -->
+
 
     <div class="row">
         <!-- Gráfico de torta -->
@@ -175,7 +267,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
+                        <canvas id="grafico-torta"></canvas>
                     </div>
                     <div class="mt-4 text-center small">
                         <span class="mr-2">
