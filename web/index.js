@@ -5,9 +5,9 @@ $(document).ready(function () {
     getNotificacionesProceso();
     //Hace polling cada un minuto para ver si hay nuevas alertas
     setInterval(function () {
-        getNotificacionesProceso();
+        //getNotificacionesProceso();
     }, 1000);
-    
+
 });
 
 function cargarModulo(nombre, params) {
@@ -48,21 +48,34 @@ function getNotificacionesProceso() {
         data: {
             datos: JSON.stringify(datos)
         },
-        success: function(response){
-            var notificaciones = JSON.parse(response);
-            if(notificaciones.length > 0){
-                //Mostrar Modal y marcar como leídas
-                modalNotificaciones(notificaciones);
-                var idesNotificaciones = [];
-                
-                for(var i = 0; i< notificaciones.length; i++){
-                    idesNotificaciones.push(notificaciones[i]._id);
-                }
-                //Marcarlas como leídas
-                marcarNotificacionesLeidas(idesNotificaciones);
+        success: function (response) {
+            var notifResponse = JSON.parse(response);
+
+            //Obtener ides para marcar leídos
+            var grupoIdes = {
+                idesNominas: [],
+                idesRendiciones: []
+            };
+            //Obtener ides de nominas
+            for (var i = 0; i < notifResponse.notificacionesNominas.length; i++) {
+                grupoIdes.idesNominas.push(notifResponse.notificacionesNominas[i]._id);
             }
+
+            //Obtener ides de rendiciones
+            for (var i = 0; i < notifResponse.notificacionesRendiciones.length; i++) {
+                grupoIdes.idesRendiciones.push(notifResponse.notificacionesRendiciones[i]._id);
+            }
+
+            //Mostrar modal de notificaciones
+            if (notifResponse.notificacionesNominas.length > 0 || notifResponse.notificacionesRendiciones.length > 0) {
+                modalNotificaciones(notifResponse);
+            }
+
+            //Marcar las notificaciones como leídas luego de mostrar el modal
+            marcarNotificacionesLeidas(grupoIdes);
+
         },
-        error: function(a, b, c){
+        error: function (a, b, c) {
             console.log(a);
             console.log(b);
             console.log(c);
@@ -70,15 +83,21 @@ function getNotificacionesProceso() {
     });
 }
 
-function modalNotificaciones(notificaciones){
-    //Si el modal no se está mostrando, se muestra.
-    if(!$('#modalNotificaciones').hasClass("in")){
-        var tituloModal = "¡ATENCIÓN! - RETRASO EN PROCESOS";
-        $('#tituloModalNotificaciones').html(tituloModal);
-        
-        var contenido = "<h2>Se ha detectado retraso en los siguientes procesos:</h2>";
-        //contenido += "<h3>Rendiciones:</h3>";
-        var tabla = TAB;
+function modalNotificaciones(notificaciones) {
+    if ($('#modalNotificaciones').hasClass("in")) {
+        return false;
+    }
+    var tituloModal = "¡ATENCIÓN! - RETRASO EN PROCESOS";
+    $('#tituloModalNotificaciones').html(tituloModal);
+
+    var contenido = "<h2>Se ha detectado retraso en los siguientes procesos:</h2>";
+    contenido += "<br />";
+
+    var tabla = "";
+    //Para mostrar lo de rendiciones ----------------------------------------------------------------------------------
+    if (notificaciones.notificacionesRendiciones.length > 0) {
+        contenido += "<h3>Rendiciones:</h3>";
+        tabla = TAB;
         tabla += "<thead>";
         tabla += "<tr>";
         tabla += "<th>ID Proceso</th>";
@@ -87,54 +106,100 @@ function modalNotificaciones(notificaciones){
         tabla += "<th>Fecha Creación</th>";
         tabla += "</tr>";
         tabla += "</thead><tbody>";
-        
-        for(var i = 0; i < notificaciones.length; i++){
-            var dateCreacion = new Date(notificaciones[i].procesosRendicion[0].fechaCreacion);
-            
+
+        for (var i = 0; i < notificaciones.notificacionesRendiciones.length; i++) {
+            var dateCreacion = new Date(notificaciones.notificacionesRendiciones[0].procesosRendicion[0].fechaCreacion);
+
             tabla += "<tr>";
-            tabla += "<td>" + notificaciones[i].idProceso + "</td>";
-            tabla += "<td>" + notificaciones[i].procesosRendicion[0].idTarea + "</td>";
-            tabla += "<td>" + notificaciones[i].procesosRendicion[0].nombreEps + "</td>";
-            tabla += "<td>" + dateCreacion.toISOString().substr(0,19).replace("T", " ") + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesRendiciones[i].idProceso + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesRendiciones[i].procesosRendicion[0].idTarea + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesRendiciones[i].procesosRendicion[0].nombreEps + "</td>";
+            tabla += "<td>" + dateCreacion.toISOString().substr(0, 19).replace("T", " ") + "</td>";
             tabla += "</tr>";
         }
-        tabla += "</tbody>"
-        tabla += "</table>"
-        
-        contenido += "<br />"
+        tabla += "</tbody>";
+        tabla += "</table>";
+
+        contenido += "<br />";
         contenido += tabla;
-        contenido += "<br />"
-        contenido += "Se despachará un correo electrónico a personal de soporte indicando la falla."
-        
-        $('#cuerpoModalNotificaciones').html(contenido);
-        $('#modalNotificaciones').modal();
-        
-        //Luego de mostrar el modal, se deben marcar las notificaciones como leídas para no seguirlas mostrando.
-        
+        contenido += "<br />";
     }
-    
+    //Fin Mostrar lo de rendiciones ----------------------------------------------------------------------------------
+
+    //Para mostrar lo de nominas ----------------------------------------------------------------------------------
+    if (notificaciones.notificacionesNominas.length > 0) {
+        contenido += "<h3>Nóminas:</h3>";
+        tabla = TAB;
+        tabla += "<thead>";
+        tabla += "<tr>";
+        tabla += "<th>ID Empresa</th>";
+        tabla += "<th>Cod Empresa</th>";
+        tabla += "<th>Empresa</th>";
+        tabla += "<th>Hora Ini</th>";
+        tabla += "<th>Hora Fin</th>";
+        tabla += "<th>Hora Notificación</th>";
+        tabla += "<th>Tipo error</th>";
+        tabla += "<th>Error</th>";
+        tabla += "</tr>";
+        tabla += "</thead><tbody>";
+
+        for (var i = 0; i < notificaciones.notificacionesNominas.length; i++) {
+            var dateCreacion = new Date(notificaciones.notificacionesNominas[i].fechaCarga);
+
+            tabla += "<tr>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].idEmpresa + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].codEmpresa + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].nomEmpresa + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].horaIni + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].horaFin + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].horaActual + "</td>";
+            if (notificaciones.notificacionesNominas[i].idEstado === null) {
+                tabla += "<td>No ha finalizado</td>";
+                tabla += "<td></td>";
+            } else {
+                tabla += "<td>Finalizado con error</td>";
+                tabla += "<td>" + notificaciones.notificacionesNominas[i].estado + "</td>";
+            }
+            tabla += "</tr>";
+        }
+        tabla += "</tbody>";
+        tabla += "</table>";
+
+        contenido += "<br />";
+        contenido += tabla;
+        contenido += "<br />";
+    }
+    //Fin Mostrar lo de nominas ----------------------------------------------------------------------------------
+    contenido += "Se despachará un correo electrónico a personal de soporte indicando la falla."
+
+    $('#cuerpoModalNotificaciones').html(contenido);
+    $('#modalNotificaciones').modal();
+
+    //Luego de mostrar el modal, se deben marcar las notificaciones como leídas para no seguirlas mostrando.
+
+
 }
 
-function marcarNotificacionesLeidas(ides){
-        
-        var datos = {
-            tipo: "notificaciones-marcar-leidas",
-            ides: ides
-        };
-        
-        $.ajax({
-            url: "RendicionesMapper",
-            type: "POST",
-            data: {
-                datos: JSON.stringify(datos)
-            },
-            success: function(response){
-                
-            },
-            error: function(a, b, c){
-                console.log(a);
-                console.log(b);
-                console.log(c);
-            }
-        });
-    }
+function marcarNotificacionesLeidas(ides) {
+
+    var datos = {
+        tipo: "notificaciones-marcar-leidas",
+        ides: ides
+    };
+
+    $.ajax({
+        url: "NotificacionesMapper",
+        type: "POST",
+        data: {
+            datos: JSON.stringify(datos)
+        },
+        success: function (response) {
+
+        },
+        error: function (a, b, c) {
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+    });
+}

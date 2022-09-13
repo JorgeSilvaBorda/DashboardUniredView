@@ -32,10 +32,11 @@ public class NotificacionesMapper extends HttpServlet {
 
 	switch (datos.getString("tipo")) {
 	    case "notificaciones":
-		out.print(getArrayFromUrl("http://0.0.0.0:8182/procesoprogramado/notificacion/noleido"));
+		out.print(getObjectFromUrl("http://0.0.0.0:8182/notificaciones/noleidas"));
 		break;
 	    case "notificaciones-marcar-leidas":
-		out.print(postObject("http://0.0.0.0:8182/procesoprogramado/notificaciones/marcarleido", datos.getJSONArray("ides").toString()));
+		System.out.println("Entra a marcar leídas en mapper Servlet");
+		out.print(postObject("http://0.0.0.0:8182/notificaciones/marcarleido", datos.getJSONObject("ides").toString()));
 		break;
 	    default:
 		out.print("{}");
