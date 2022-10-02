@@ -26,7 +26,7 @@ function getResumen() {
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
             $('#ejecucion').html(resumen.enEjecucion);
-            $('#espera').html(resumen.pendiente);
+            $('#espera').html(resumen.total - ejecutados);
             var porcEjecucion = ((ejecutados * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");
             $('#progress-ejecucion').css({"width": porcEjecucion + "%"});
@@ -37,7 +37,7 @@ function getResumen() {
             $('#exitoso').html(resumen.exitoso);
             $('#error').html(resumen.fallaEnProceso);
             $('#generado').html(resumen.generado);
-            $('#transmitido').html(resumen.transmitido);
+            
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
             if(isNaN(tasaError)){
                 tasaError = 0;

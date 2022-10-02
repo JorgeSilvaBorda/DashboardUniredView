@@ -57,22 +57,29 @@ function getNotificacionesProceso() {
                 idesRendiciones: []
             };
             //Obtener ides de nominas
-            for (var i = 0; i < notifResponse.notificacionesNominas.length; i++) {
-                grupoIdes.idesNominas.push(notifResponse.notificacionesNominas[i]._id);
+            if (notifResponse.notificacionesNominas !== undefined) {
+                for (var i = 0; i < notifResponse.notificacionesNominas.length; i++) {
+                    grupoIdes.idesNominas.push(notifResponse.notificacionesNominas[i]._id);
+                }
             }
+
 
             //Obtener ides de rendiciones
-            for (var i = 0; i < notifResponse.notificacionesRendiciones.length; i++) {
-                grupoIdes.idesRendiciones.push(notifResponse.notificacionesRendiciones[i]._id);
+            if (notifResponse.notificacionesRendiciones !== undefined) {
+                for (var i = 0; i < notifResponse.notificacionesRendiciones.length; i++) {
+                    grupoIdes.idesRendiciones.push(notifResponse.notificacionesRendiciones[i]._id);
+                }
             }
+
 
             //Mostrar modal de notificaciones
-            if (notifResponse.notificacionesNominas.length > 0 || notifResponse.notificacionesRendiciones.length > 0) {
+            if ((notifResponse.notificacionesNominas !== undefined && notifResponse.notificacionesNominas.length > 0) || (notifResponse.notificacionesRendiciones !== undefined && notifResponse.notificacionesRendiciones.length > 0)) {
                 modalNotificaciones(notifResponse);
+                //Marcar las notificaciones como leídas luego de mostrar el modal
+                marcarNotificacionesLeidas(grupoIdes);
             }
 
-            //Marcar las notificaciones como leídas luego de mostrar el modal
-            marcarNotificacionesLeidas(grupoIdes);
+
 
         },
         error: function (a, b, c) {
