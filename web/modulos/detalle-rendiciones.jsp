@@ -5,15 +5,29 @@
 
 <link href="vendor/datatables/dataTables.bootstrap4.min.css?=<% out.print(util.Util.generaRandom(10000, 99999)); %>" rel="stylesheet">
 
-<!-- Remover estos javascript -->
-
-<script type="text/javascript" src="modulos/muestras.js?=<% out.print(util.Util.generaRandom(10000, 99999)); %>"></script>
-
-<!-- /Remover -->
-
 <script type="text/javascript" >
     var TAB = '<table class="table table-bordered table-hover" id="cont-tabla" width="100%" cellspacing="0" style="font-size: 12px;">'
     var TABDETALLE = '<table class="table table-bordered table-hover" id="cont-tabla-detalle" width="100%" cellspacing="0" style="font-size: 12px;">'
+    var OPCIONES_TABLA = {
+        "language": {
+            "lengthMenu": "Mostrando _MENU_ registros por página",
+            "zeroRecords": "No se han encontrado registros para la búsqueda",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No se han encontrado registros para la búsqueda",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar asendente por esta columna",
+                "sortDescending": ": activar para ordenar descendente por esta columna"
+            }
+        }
+    };
     $(document).ready(function () {
         procesarDetalle();
     });
@@ -40,14 +54,33 @@
                 $('#titulo-detalle-rendiciones').html("Detalle rendiciones pendientes por ejecutar");
                 procesarPendientes();
                 break;
+            case "vacias":
+                $('#titulo-detalle-rendiciones').html("Detalle rendiciones vacías");
+                procesarVacias();
+                break;
+            case "enviadasmail":
+                $('#titulo-detalle-rendiciones').html("Detalle rendiciones enviadas a Mail");
+                procesarEnviadasMail();
+                break;
+            case "ejecucion":
+                $('#titulo-detalle-rendiciones').html("Detalle rendiciones en Ejecución");
+                procesarEnEjecucion();
+                break;
+            case "generado":
+                $('#titulo-detalle-rendiciones').html("Detalle rendiciones Generadas");
+                procesarGeneradas();
+                break;
+            case "transmitido":
+                $('#titulo-detalle-rendiciones').html("Detalle rendiciones Transmitidas");
+                procesarTransmitidas();
+                break;
         }
     }
 
     function procesarProgramadas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: 'rendiciones-programadas-dia',
-            fecha: fecha
+            tipo: 'rendiciones-programadas-dia'
         };
         $.ajax({
             type: 'POST',
@@ -60,16 +93,10 @@
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
-                        + '<th>ID Proceso</th>'
+                        + '<th>ID Tarea</th>'
+                        + '<th>Hora Ejecución</th>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Empresa</th>'
-                        + '<th>Cod Estado</th>'
-                        + '<th>Estado</th>'
-                        + '<th>Fecha Proceso</th>'
-                        + '<th>Fecha Creación</th>'
-                        + '<th>Inicio Proceso</th>'
-                        + '<th>Fin Proceso</th>'
-                        + '<th>Sub Procesos</th>'
+                        + '<th>Nombre Empresa</th>'
                         + '</tr>'
                         + '</thead>'
                         + '<tbody>';
@@ -77,21 +104,17 @@
                 for (var i = 0; i < procesos.length; i++) {
 
                     tablaProgramadas += "<tr>"
-                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idTarea + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].horaEjecucion + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
-                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
-                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
-                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
-                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
-                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEps + "</td>";
                     tablaProgramadas += "</tr>"
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                var optsTabla = OPCIONES_TABLA;
+                optsTabla.order=[[1, 'asc']]
+                $('#cont-tabla').DataTable(optsTabla);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -103,10 +126,9 @@
     }
 
     function procesarEjecutadas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-ejecutadas-dia",
-            fecha: fecha
+            tipo: "rendiciones-ejecutadas-dia"
         };
         $.ajax({
             type: 'POST',
@@ -150,7 +172,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -161,10 +183,9 @@
     }
 
     function procesarExitosas() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-exitosas-dia",
-            fecha: fecha
+            tipo: "rendiciones-exitosas-dia"
         };
         $.ajax({
             type: 'POST',
@@ -208,7 +229,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -219,11 +240,9 @@
     }
 
     function procesarErrores() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
 
         var datos = {
-            tipo: "rendiciones-errores-dia",
-            fecha: fecha
+            tipo: "rendiciones-errores-dia"
         };
         $.ajax({
             type: 'POST',
@@ -267,7 +286,7 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -278,13 +297,12 @@
     }
 
     function procesarPendientes() {
-        var fecha = dateTimeToLocalDateInvertYaEnUTC(new Date(), "-");
+
         var datos = {
-            tipo: "rendiciones-pendientes-dia",
-            fecha: fecha
+            tipo: "rendiciones-pendientes-dia"
         };
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: "RendicionesMapper",
             data: {
                 datos: JSON.stringify(datos)
@@ -325,7 +343,292 @@
                 }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable();
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    function procesarVacias() {
+
+        var datos = {
+            tipo: "rendiciones-vacias-dia"
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
+                var tablaProgramadas = TAB
+                        + '<thead>'
+                        + '<tr>'
+                        + '<th>ID Proceso</th>'
+                        + '<th>ID Empresa</th>'
+                        + '<th>Empresa</th>'
+                        + '<th>Cod Estado</th>'
+                        + '<th>Estado</th>'
+                        + '<th>Fecha Proceso</th>'
+                        + '<th>Fecha Creación</th>'
+                        + '<th>Inicio Proceso</th>'
+                        + '<th>Fin Proceso</th>'
+                        + '<th>Sub Procesos</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                for (var i = 0; i < procesos.length; i++) {
+
+                    tablaProgramadas += "<tr>"
+                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
+                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "</tr>"
+                }
+                tablaProgramadas += "</tbody></table>"
+                $('#div-tabla').html(tablaProgramadas);
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    function procesarEnviadasMail() {
+
+        var datos = {
+            tipo: "rendiciones-enviadas-mail-dia"
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
+                var tablaProgramadas = TAB
+                        + '<thead>'
+                        + '<tr>'
+                        + '<th>ID Proceso</th>'
+                        + '<th>ID Empresa</th>'
+                        + '<th>Empresa</th>'
+                        + '<th>Cod Estado</th>'
+                        + '<th>Estado</th>'
+                        + '<th>Fecha Proceso</th>'
+                        + '<th>Fecha Creación</th>'
+                        + '<th>Inicio Proceso</th>'
+                        + '<th>Fin Proceso</th>'
+                        + '<th>Sub Procesos</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                for (var i = 0; i < procesos.length; i++) {
+
+                    tablaProgramadas += "<tr>"
+                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
+                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "</tr>"
+                }
+                tablaProgramadas += "</tbody></table>"
+                $('#div-tabla').html(tablaProgramadas);
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    function procesarEnEjecucion() {
+
+        var datos = {
+            tipo: "rendiciones-en-ejecucion"
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
+                var tablaProgramadas = TAB
+                        + '<thead>'
+                        + '<tr>'
+                        + '<th>ID Proceso</th>'
+                        + '<th>ID Empresa</th>'
+                        + '<th>Empresa</th>'
+                        + '<th>Cod Estado</th>'
+                        + '<th>Estado</th>'
+                        + '<th>Fecha Proceso</th>'
+                        + '<th>Fecha Creación</th>'
+                        + '<th>Inicio Proceso</th>'
+                        + '<th>Fin Proceso</th>'
+                        + '<th>Sub Procesos</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                for (var i = 0; i < procesos.length; i++) {
+
+                    tablaProgramadas += "<tr>"
+                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
+                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "</tr>"
+                }
+                tablaProgramadas += "</tbody></table>"
+                $('#div-tabla').html(tablaProgramadas);
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    function procesarGeneradas() {
+
+        var datos = {
+            tipo: "rendiciones-generadas"
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
+                var tablaProgramadas = TAB
+                        + '<thead>'
+                        + '<tr>'
+                        + '<th>ID Proceso</th>'
+                        + '<th>ID Empresa</th>'
+                        + '<th>Empresa</th>'
+                        + '<th>Cod Estado</th>'
+                        + '<th>Estado</th>'
+                        + '<th>Fecha Proceso</th>'
+                        + '<th>Fecha Creación</th>'
+                        + '<th>Inicio Proceso</th>'
+                        + '<th>Fin Proceso</th>'
+                        + '<th>Sub Procesos</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                for (var i = 0; i < procesos.length; i++) {
+
+                    tablaProgramadas += "<tr>"
+                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
+                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "</tr>"
+                }
+                tablaProgramadas += "</tbody></table>"
+                $('#div-tabla').html(tablaProgramadas);
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    function procesarTransmitidas() {
+
+        var datos = {
+            tipo: "rendiciones-transmitidas"
+        };
+        $.ajax({
+            type: 'POST',
+            url: "RendicionesMapper",
+            data: {
+                datos: JSON.stringify(datos)
+            },
+            success: function (response) {
+                var procesos = JSON.parse(response);
+                var tablaProgramadas = TAB
+                        + '<thead>'
+                        + '<tr>'
+                        + '<th>ID Proceso</th>'
+                        + '<th>ID Empresa</th>'
+                        + '<th>Empresa</th>'
+                        + '<th>Cod Estado</th>'
+                        + '<th>Estado</th>'
+                        + '<th>Fecha Proceso</th>'
+                        + '<th>Fecha Creación</th>'
+                        + '<th>Inicio Proceso</th>'
+                        + '<th>Fin Proceso</th>'
+                        + '<th>Sub Procesos</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                for (var i = 0; i < procesos.length; i++) {
+
+                    tablaProgramadas += "<tr>"
+                    tablaProgramadas += "<td>" + procesos[i].idProceso + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].nombreEmpresa + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].codEstado + "</td>";
+                    tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaCreacion, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].inicioProceso, "-") + "</td>";
+                    tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].finProceso, "-") + "</td>";
+                    tablaProgramadas += "<td><a href='#' onclick='mostrarSubprocesos(" + procesos[i].idProceso + ")'>Ver</a></td>";
+                    tablaProgramadas += "</tr>"
+                }
+                tablaProgramadas += "</tbody></table>"
+                $('#div-tabla').html(tablaProgramadas);
+                $('#cont-tabla').DataTable(OPCIONES_TABLA);
             },
             error: function (a, b, c) {
                 console.log(a);
@@ -336,7 +639,7 @@
     }
 
     function mostrarSubprocesos(idProceso) {
-        
+
         var datos = {
             tipo: "subprocesos-rendicion",
             idProceso: idProceso

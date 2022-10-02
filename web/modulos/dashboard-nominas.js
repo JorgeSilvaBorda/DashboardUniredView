@@ -3,43 +3,42 @@ var graficoTorta;
 $(document).ready(function () {
     getResumen();
     $('.nav-item').removeClass("active");
-    $('#btn-menu-rendiciones').addClass("active");
+    $('#btn-menu-nominas').addClass("active");
     setInterval(function () {
         actualizar();
     }, 60000);
-     
+
 });
 
 function getResumen() {
-    
-    var datos = {tipo: "resumen-rendiciones"};
-    
+
+    var datos = {tipo: "resumen-nominas"};
+
     $.ajax({
         type: 'POST',
-        url: 'RendicionesMapper',
+        url: 'NominasMapper',
         data: {
             datos: JSON.stringify(datos)
         },
         success: function (response) {
             var resumen = JSON.parse(response);
             $('#programados-hoy').html(resumen.total);
-            var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
+            var ejecutados = resumen.ejecutados;
             $('#ejecutados').html(ejecutados);
-            $('#ejecucion').html(resumen.enEjecucion);
-            $('#espera').html(resumen.total - ejecutados);
+
+            $('#espera').html(resumen.pendiente);
             var porcEjecucion = ((ejecutados * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");
             $('#progress-ejecucion').css({"width": porcEjecucion + "%"});
             $('#progress-ejecucion').attr("aria-valuenow", porcEjecucion);
             $('#exitoso').html(resumen.exitoso);
-            $('#vacias').html(resumen.rendicionVacia);
-            $('#enviadasamail').html(resumen.enviadoAMail);
-            $('#exitoso').html(resumen.exitoso);
-            $('#error').html(resumen.fallaEnProceso);
-            $('#generado').html(resumen.generado);
-            
+            $('#error').html(resumen.error);
+            $('#norecibidas').html(resumen.noRecibida);
+            $('#sinprocesar').html(resumen.sinProcesar);
+            $('#parcialmente').html(resumen.parcialmente);
+            $('#noheaderfooter').html(resumen.noCumple);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
-            if(isNaN(tasaError)){
+            if (isNaN(tasaError)) {
                 tasaError = 0;
             }
             $('#tasa-error').html(tasaError + "%");
@@ -49,7 +48,7 @@ function getResumen() {
 
             var porcentajeExitoso = (resumen.exitoso * 100) / resumen.total;
             var porcentajeError = (resumen.fallaEnProceso * 100) / resumen.total;
-            var porcentajeEspera = (resumen.enEspera * 100) / resumen.total;
+            var porcentajeEspera = (resumen.pendiente * 100) / resumen.total;
             crearGrafico(porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2));
         },
         error: function (a, b, c) {
@@ -112,35 +111,33 @@ function crearGrafico(porcentajeExitoso, porcentajeEspera, porcentajeError) {
 }
 
 function actualizar() {
-    
-    var datos = {tipo: "resumen-rendiciones"};
-    
+    var datos = {tipo: "resumen-nominas"};
+
     $.ajax({
         type: 'POST',
-        url: 'RendicionesMapper',
+        url: 'NominasMapper',
         data: {
             datos: JSON.stringify(datos)
         },
         success: function (response) {
             var resumen = JSON.parse(response);
             $('#programados-hoy').html(resumen.total);
-            var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
+            var ejecutados = resumen.ejecutados;
             $('#ejecutados').html(ejecutados);
-            $('#ejecucion').html(resumen.enEjecucion);
+
             $('#espera').html(resumen.pendiente);
             var porcEjecucion = ((ejecutados * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");
             $('#progress-ejecucion').css({"width": porcEjecucion + "%"});
             $('#progress-ejecucion').attr("aria-valuenow", porcEjecucion);
             $('#exitoso').html(resumen.exitoso);
-            $('#vacias').html(resumen.rendicionVacia);
-            $('#enviadasamail').html(resumen.enviadoAMail);
-            $('#exitoso').html(resumen.exitoso);
-            $('#error').html(resumen.fallaEnProceso);
-            $('#generado').html(resumen.generado);
-            $('#transmitido').html(resumen.transmitido);
+            $('#error').html(resumen.error);
+            $('#norecibidas').html(resumen.noRecibida);
+            $('#sinprocesar').html(resumen.sinProcesar);
+            $('#parcialmente').html(resumen.parcialmente);
+            $('#noheaderfooter').html(resumen.noCumple);
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
-            if(isNaN(tasaError)){
+            if (isNaN(tasaError)) {
                 tasaError = 0;
             }
             $('#tasa-error').html(tasaError + "%");
@@ -150,7 +147,7 @@ function actualizar() {
 
             var porcentajeExitoso = (resumen.exitoso * 100) / resumen.total;
             var porcentajeError = (resumen.fallaEnProceso * 100) / resumen.total;
-            var porcentajeEspera = (resumen.enEspera * 100) / resumen.total;
+            var porcentajeEspera = (resumen.pendiente * 100) / resumen.total;
             //crearGrafico(porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2));
             graficoTorta.data.datasets[0].data = [porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2)];
             graficoTorta.update();

@@ -22,7 +22,7 @@ import util.json.JSONObject;
  *
  * @author jsilvab
  */
-public class RendicionesMapper extends HttpServlet {
+public class NominasMapper extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,49 +30,36 @@ public class RendicionesMapper extends HttpServlet {
 	PrintWriter out = response.getWriter();
 
 	switch (datos.getString("tipo")) {
-	    case "resumen-rendiciones":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/proceso/resumen"));
+	    case "resumen-nominas":
+		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesonominas/resumen"));
 		break;
-	    case "rendiciones-programadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/"));
+	    case "nominas-programadas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/"));
 		break;
-	    case "rendiciones-ejecutadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecutados"));
+	    case "nominas-ejecutadas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/ejecutados"));
 		break;
-	    case "rendiciones-exitosas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/exitosos"));
+	    case "nominas-exitosas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/exitosos"));
 		break;
-	    case "rendiciones-errores-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/errores"));
+	    case "nominas-errores-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/errores"));
 		break;
-	    case "rendiciones-pendientes-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/pendientes"));
+	    case "nominas-pendientes-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/pendientes"));
 		break;
-	    case "rendiciones-vacias-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/vacias"));
+	    case "nominas-no-recibidas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/norecibidas"));
 		break;
-	    case "rendiciones-enviadas-mail-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/enviadasmail"));
+	    case "nominas-sin-procesar-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/sinprocesar"));
 		break;
-	    case "rendiciones-en-ejecucion":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecucion"));
+	    case "nominas-parcialmente-recibidas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/parcialmente"));
 		break;
-	    case "rendiciones-generadas":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/generadas"));
+	    case "nominas-nocumple-headerfooter":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/nocumple"));
 		break;
-	    case "rendiciones-transmitidas":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/transmitidas"));
-		break;
-	    case "subprocesos-rendicion":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
-		break;
-	    case "notificaciones":
-		out.print(getArrayFromUrl("http://0.0.0.0:8182/procesoprogramado/notificacion/noleido"));
-		break;
-	    case "notificaciones-marcar-leidas":
-		out.print(postObject("http://0.0.0.0:8182/procesoprogramado/notificaciones/marcarleido", datos.getJSONArray("ides").toString()));
-		break;
-
 	    default:
 		out.print("{}");
 		break;

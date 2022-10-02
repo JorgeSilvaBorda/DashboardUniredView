@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package mapping;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import util.json.JSONArray;
@@ -22,57 +23,17 @@ import util.json.JSONObject;
  *
  * @author jsilvab
  */
-public class RendicionesMapper extends HttpServlet {
-
+public class HistoriaMapper extends HttpServlet {
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	JSONObject datos = new JSONObject(request.getParameter("datos"));
 	PrintWriter out = response.getWriter();
 
 	switch (datos.getString("tipo")) {
-	    case "resumen-rendiciones":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/proceso/resumen"));
+	    case "historia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/historico/" + datos.getString("proceso") + "/" + datos.getString("fechaDesde") + "/" + datos.getString("fechaHasta")));
 		break;
-	    case "rendiciones-programadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/"));
-		break;
-	    case "rendiciones-ejecutadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecutados"));
-		break;
-	    case "rendiciones-exitosas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/exitosos"));
-		break;
-	    case "rendiciones-errores-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/errores"));
-		break;
-	    case "rendiciones-pendientes-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/pendientes"));
-		break;
-	    case "rendiciones-vacias-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/vacias"));
-		break;
-	    case "rendiciones-enviadas-mail-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/enviadasmail"));
-		break;
-	    case "rendiciones-en-ejecucion":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/ejecucion"));
-		break;
-	    case "rendiciones-generadas":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/generadas"));
-		break;
-	    case "rendiciones-transmitidas":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/dia/transmitidas"));
-		break;
-	    case "subprocesos-rendicion":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/proceso/" + datos.getInt("idProceso") + "/subprocesos"));
-		break;
-	    case "notificaciones":
-		out.print(getArrayFromUrl("http://0.0.0.0:8182/procesoprogramado/notificacion/noleido"));
-		break;
-	    case "notificaciones-marcar-leidas":
-		out.print(postObject("http://0.0.0.0:8182/procesoprogramado/notificaciones/marcarleido", datos.getJSONArray("ides").toString()));
-		break;
-
 	    default:
 		out.print("{}");
 		break;

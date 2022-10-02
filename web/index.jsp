@@ -5,6 +5,12 @@
 --%>
 
 <%@include file="head.jsp" %>
+<%
+    String nombreMostrar = "";
+    if(session.getAttribute("login") != null){
+        nombreMostrar = session.getAttribute("nombre") + " " + session.getAttribute("apellido");
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -66,7 +72,7 @@
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item" onclick="cargarModulo('dashboard-nominas', null);">
+                <li class="nav-item" id="btn-menu-nominas" onclick="cargarModulo('dashboard-nominas', null);">
                     <a class="nav-link collapsed" href="#">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Nóminas</span>
@@ -74,11 +80,26 @@
                 </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item" onclick="cargarModulo('dashboard-rendiciones', null);">
+                <li class="nav-item" id="btn-menu-rendiciones" onclick="cargarModulo('dashboard-rendiciones', null);">
                     <a class="nav-link collapsed" href="#" >
                         <i class="fas fa-fw fa-table"></i>
                         <span>Rendiciones</span>
                     </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Historia</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a onclick="cargarModulo('historia', 'tipo=rendiciones');" class="collapse-item" href="#">Rendiciones</a>
+                            <a onclick="cargarModulo('historia', 'tipo=nominas');" class="collapse-item" href="#">Nóminas</a>
+                        </div>
+                    </div>
                 </li>
 
                 <hr class="sidebar-divider d-none d-md-block">
@@ -130,7 +151,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jorge Silva</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><% out.print(nombreMostrar); %></span>
                                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
@@ -156,7 +177,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Unired 2021</span>
+                            <span>Copyright &copy; Unired 2022</span>
                         </div>
                     </div>
                 </footer>
@@ -173,25 +194,25 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <!-- Logout Modal-->
-        <!--div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <!-- Modal Notificaciones-->
+        <div class="modal fade" id="modalNotificaciones" tabindex="-1" role="dialog" aria-labelledby="modalNotificaciones"
              aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <!--span class="fas fa-exclamation fa-2x text-danger">&nbsp;</span-->
+                        <h4 class="modal-title text-danger" id="tituloModalNotificaciones">Error en rendiciones</h4>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div id="cuerpoModalNotificaciones" class="modal-body"></div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary-outline" data-dismiss="modal" href="#">Cerrar</a>
                     </div>
                 </div>
             </div>
-        </div-->
+        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js?=<% out.print(util.Util.generaRandom(10000, 99999)); %>"></script>
