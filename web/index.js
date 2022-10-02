@@ -111,17 +111,21 @@ function modalNotificaciones(notificaciones) {
         tabla += "<th>ID Tarea</th>";
         tabla += "<th>Empresa</th>";
         tabla += "<th>Fecha Creación</th>";
+        tabla += "<th>Fecha Alerta</th>";
         tabla += "</tr>";
         tabla += "</thead><tbody>";
 
         for (var i = 0; i < notificaciones.notificacionesRendiciones.length; i++) {
             var dateCreacion = new Date(notificaciones.notificacionesRendiciones[0].procesosRendicion[0].fechaCreacion);
-
+            var ultProceso = notificaciones.notificacionesRendiciones[i].procesosRendicion.length - 1;
+            var fechaAlerta = notificaciones.notificacionesRendiciones[i].procesosRendicion[ultProceso].fechaHoraConsulta;
+            
             tabla += "<tr>";
             tabla += "<td>" + notificaciones.notificacionesRendiciones[i].idProceso + "</td>";
             tabla += "<td>" + notificaciones.notificacionesRendiciones[i].procesosRendicion[0].idTarea + "</td>";
             tabla += "<td>" + notificaciones.notificacionesRendiciones[i].procesosRendicion[0].nombreEps + "</td>";
             tabla += "<td>" + dateCreacion.toISOString().substr(0, 19).replace("T", " ") + "</td>";
+            tabla += "<td>" + fechaAlerta.toISOString().substr(0, 19).replace("T", " ") + "</td>";
             tabla += "</tr>";
         }
         tabla += "</tbody>";
@@ -147,6 +151,7 @@ function modalNotificaciones(notificaciones) {
         tabla += "<th>Hora Notificación</th>";
         tabla += "<th>Tipo error</th>";
         tabla += "<th>Error</th>";
+        tabla += "<th>Fecha Alerta</th>";
         tabla += "</tr>";
         tabla += "</thead><tbody>";
 
@@ -160,6 +165,7 @@ function modalNotificaciones(notificaciones) {
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaIni + "</td>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaFin + "</td>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaActual + "</td>";
+            tabla += "<td>" + notificaciones.notificacionesNominas[i].fechaHoraCarga.toISOString().substr(0, 19).replace("T", " ") + "</td>";
             if (notificaciones.notificacionesNominas[i].idEstado === null) {
                 tabla += "<td>No ha finalizado</td>";
                 tabla += "<td></td>";
