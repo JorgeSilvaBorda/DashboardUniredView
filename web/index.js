@@ -5,7 +5,7 @@ $(document).ready(function () {
     getNotificacionesProceso();
     //Hace polling cada un minuto para ver si hay nuevas alertas
     setInterval(function () {
-        //getNotificacionesProceso();
+        getNotificacionesProceso();
     }, 1000);
 
 });
@@ -91,6 +91,7 @@ function getNotificacionesProceso() {
 }
 
 function modalNotificaciones(notificaciones) {
+
     if ($('#modalNotificaciones').hasClass("in")) {
         return false;
     }
@@ -118,7 +119,7 @@ function modalNotificaciones(notificaciones) {
         for (var i = 0; i < notificaciones.notificacionesRendiciones.length; i++) {
             var dateCreacion = new Date(notificaciones.notificacionesRendiciones[0].procesosRendicion[0].fechaCreacion);
             var ultProceso = notificaciones.notificacionesRendiciones[i].procesosRendicion.length - 1;
-            var fechaAlerta = notificaciones.notificacionesRendiciones[i].procesosRendicion[ultProceso].fechaHoraConsulta;
+            var fechaAlerta = new Date(notificaciones.notificacionesRendiciones[i].procesosRendicion[ultProceso].fechaHoraConsulta);
             
             tabla += "<tr>";
             tabla += "<td>" + notificaciones.notificacionesRendiciones[i].idProceso + "</td>";
@@ -157,7 +158,7 @@ function modalNotificaciones(notificaciones) {
 
         for (var i = 0; i < notificaciones.notificacionesNominas.length; i++) {
             var dateCreacion = new Date(notificaciones.notificacionesNominas[i].fechaCarga);
-
+            var dateTimeCreacion = new Date(notificaciones.notificacionesNominas[i].fechaHoraCarga);
             tabla += "<tr>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].idEmpresa + "</td>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].codEmpresa + "</td>";
@@ -165,7 +166,7 @@ function modalNotificaciones(notificaciones) {
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaIni + "</td>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaFin + "</td>";
             tabla += "<td>" + notificaciones.notificacionesNominas[i].horaActual + "</td>";
-            tabla += "<td>" + notificaciones.notificacionesNominas[i].fechaHoraCarga.toISOString().substr(0, 19).replace("T", " ") + "</td>";
+            
             if (notificaciones.notificacionesNominas[i].idEstado === null) {
                 tabla += "<td>No ha finalizado</td>";
                 tabla += "<td></td>";
@@ -173,6 +174,7 @@ function modalNotificaciones(notificaciones) {
                 tabla += "<td>Finalizado con error</td>";
                 tabla += "<td>" + notificaciones.notificacionesNominas[i].estado + "</td>";
             }
+            tabla += "<td>" + dateTimeCreacion.toLocaleString().replace(",", "") + "</td>";
             tabla += "</tr>";
         }
         tabla += "</tbody>";
@@ -183,7 +185,7 @@ function modalNotificaciones(notificaciones) {
         contenido += "<br />";
     }
     //Fin Mostrar lo de nominas ----------------------------------------------------------------------------------
-    contenido += "Se despachará un correo electrónico a personal de soporte indicando la falla."
+    contenido += "Se despachará un correo electrónico a personal de soporte indicando la falla.";
 
     $('#cuerpoModalNotificaciones').html(contenido);
     $('#modalNotificaciones').modal();

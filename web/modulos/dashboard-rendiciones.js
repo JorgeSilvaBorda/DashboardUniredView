@@ -49,7 +49,7 @@ function getResumen() {
 
             var porcentajeExitoso = (resumen.exitoso * 100) / resumen.total;
             var porcentajeError = (resumen.fallaEnProceso * 100) / resumen.total;
-            var porcentajeEspera = (resumen.enEspera * 100) / resumen.total;
+            var porcentajeEspera = ((resumen.total - ejecutados) * 100) / resumen.total;
             crearGrafico(porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2));
         },
         error: function (a, b, c) {
@@ -127,7 +127,7 @@ function actualizar() {
             var ejecutados = resumen.generado + resumen.transmitido + resumen.fallaEnProceso + resumen.enviadoAMail + resumen.rendicionVacia;
             $('#ejecutados').html(ejecutados);
             $('#ejecucion').html(resumen.enEjecucion);
-            $('#espera').html(resumen.pendiente);
+            $('#espera').html(resumen.total - ejecutados);
             var porcEjecucion = ((ejecutados * 100) / resumen.total).toFixed(2);
             $('#porcentaje-ejecucion').html(porcEjecucion + "%");
             $('#progress-ejecucion').css({"width": porcEjecucion + "%"});
@@ -138,7 +138,7 @@ function actualizar() {
             $('#exitoso').html(resumen.exitoso);
             $('#error').html(resumen.fallaEnProceso);
             $('#generado').html(resumen.generado);
-            $('#transmitido').html(resumen.transmitido);
+
             var tasaError = ((resumen.fallaEnProceso * 100) / ejecutados).toFixed(2);
             if(isNaN(tasaError)){
                 tasaError = 0;
@@ -150,7 +150,7 @@ function actualizar() {
 
             var porcentajeExitoso = (resumen.exitoso * 100) / resumen.total;
             var porcentajeError = (resumen.fallaEnProceso * 100) / resumen.total;
-            var porcentajeEspera = (resumen.enEspera * 100) / resumen.total;
+            var porcentajeEspera = ((resumen.total - ejecutados) * 100) / resumen.total;
             //crearGrafico(porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2));
             graficoTorta.data.datasets[0].data = [porcentajeExitoso.toFixed(2), porcentajeEspera.toFixed(2), porcentajeError.toFixed(2)];
             graficoTorta.update();
