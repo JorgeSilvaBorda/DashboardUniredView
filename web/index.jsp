@@ -86,6 +86,22 @@
                         <span>Rendiciones</span>
                     </a>
                 </li>
+                
+                <!-- Extract -->
+                <li class="nav-item" id="btn-menu-extract" onclick="cargarModulo('dashboard-extract', null);">
+                    <a class="nav-link collapsed" href="#" >
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Extract</span>
+                    </a>
+                </li>
+                
+                <!-- Conciliación -->
+                <li class="nav-item" id="btn-menu-extract" onclick="cargarModulo('dashboard-conciliacion', null);">
+                    <a class="nav-link collapsed" href="#" >
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Conciliación</span>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -98,6 +114,8 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a onclick="cargarModulo('historia', 'tipo=rendiciones');" class="collapse-item" href="#">Rendiciones</a>
                             <a onclick="cargarModulo('historia', 'tipo=nominas');" class="collapse-item" href="#">Nóminas</a>
+                            <a onclick="cargarModulo('historia', 'tipo=extract');" class="collapse-item" href="#">Extract</a>
+                            <a onclick="cargarModulo('historia', 'tipo=conciliacion');" class="collapse-item" href="#">Conciliación</a>
                         </div>
                     </div>
                 </li>

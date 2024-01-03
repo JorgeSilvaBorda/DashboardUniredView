@@ -20,6 +20,10 @@
         <servlet-name>HistoriaMapper</servlet-name>
         <servlet-class>mapping.HistoriaMapper</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExtractMapper</servlet-name>
+        <servlet-class>mapping.ExtractMapper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>HistoriaMapper</servlet-name>
         <url-pattern>/HistoriaMapper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExtractMapper</servlet-name>
+        <url-pattern>/ExtractMapper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
