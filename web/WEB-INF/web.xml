@@ -24,6 +24,10 @@
         <servlet-name>ExtractMapper</servlet-name>
         <servlet-class>mapping.ExtractMapper</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConciliacionMapper</servlet-name>
+        <servlet-class>mapping.ConciliacionMapper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ExtractMapper</servlet-name>
         <url-pattern>/ExtractMapper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConciliacionMapper</servlet-name>
+        <url-pattern>/ConciliacionMapper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -100,7 +100,7 @@ public class HistoriaMapper extends HttpServlet {
 	    }
 
 	} catch (Exception ex) {
-	    System.out.println("No se puede hacer post (RendicionesMapper)");
+	    System.out.println("No se puede hacer post (HistoricoMapper)");
 	    System.out.println(ex);
 	    return new JSONObject();
 	}

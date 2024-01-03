@@ -3,7 +3,7 @@ var graficoTorta;
 $(document).ready(function () {
     getResumen();
     $('.nav-item').removeClass("active");
-    $('#btn-menu-extract').addClass("active");
+    $('#btn-menu-conciliacion').addClass("active");
     setInterval(function () {
         actualizar();
     }, 60000);
@@ -12,11 +12,11 @@ $(document).ready(function () {
 
 function getResumen() {
 
-    var datos = {tipo: "resumen-extract"};
+    var datos = {tipo: "resumen-conciliacion"};
 
     $.ajax({
         type: 'POST',
-        url: 'ExtractMapper',
+        url: 'ConciliacionMapper',
         data: {
             datos: JSON.stringify(datos)
         },
@@ -114,11 +114,11 @@ function crearGrafico(porcentajeExitoso, porcentajeEspera, porcentajeError) {
 }
 
 function actualizar() {
-    var datos = {tipo: "resumen-extract"};
+    var datos = {tipo: "resumen-conciliacion"};
 
     $.ajax({
         type: 'POST',
-        url: 'ExtractMapper',
+        url: 'ConciliacionMapper',
         data: {
             datos: JSON.stringify(datos)
         },

@@ -22,38 +22,38 @@ import util.json.JSONObject;
  *
  * @author jsilvab
  */
-public class ExtractMapper extends HttpServlet {
+public class ConciliacionMapper extends HttpServlet {
 
-    @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject datos = new JSONObject(request.getParameter("datos"));
-        PrintWriter out = response.getWriter();
-        
-        switch (datos.getString("tipo")) {
-	    case "resumen-extract":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/resumen"));
+	JSONObject datos = new JSONObject(request.getParameter("datos"));
+	PrintWriter out = response.getWriter();
+
+	switch (datos.getString("tipo")) {
+	    case "resumen-conciliacion":
+		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/resumen"));
 		break;
-	    case "extract-programadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/"));
+	    case "conciliacion-programadas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/"));
 		break;
-	    case "extract-ejecutadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/ejecutados"));
+	    case "conciliacion-ejecutadas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/ejecutados"));
 		break;
-	    case "extract-exitosas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/exitosos"));
+	    case "conciliacion-exitosas-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/exitosos"));
 		break;
-	    case "extract-errores-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/errores"));
+	    case "conciliacion-errores-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/errores"));
 		break;
-	    case "extract-pendientes-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/pendientes"));
+	    case "conciliacion-pendientes-dia":
+		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/pendientes"));
 		break;
 	    default:
 		out.print("{}");
 		break;
 	}
     }
-    
+
     public static JSONObject getObjectFromUrl(String ruta) {
 	try {
 	    URL url = new URL(ruta);
@@ -114,7 +114,7 @@ public class ExtractMapper extends HttpServlet {
 	    }
 
 	} catch (Exception ex) {
-	    System.out.println("No se puede hacer post (ExtractMapper)");
+	    System.out.println("No se puede hacer post (ConciliacionMapper)");
 	    System.out.println(ex);
 	    return new JSONObject();
 	}
