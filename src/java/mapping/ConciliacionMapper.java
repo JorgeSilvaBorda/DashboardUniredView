@@ -34,13 +34,13 @@ public class ConciliacionMapper extends HttpServlet {
                 out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/resumen"));
                 break;
             case "conciliacion-programadas-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/"));
+                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/programadas"));
                 break;
             case "conciliacion-ejecutadas-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/ejecutados"));
+                out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/ejecutados"));
                 break;
             case "conciliacion-exitosas-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/exitosos"));
+                out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/exitosos"));
                 break;
             case "conciliacion-errores-dia":
                 out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/errores"));
