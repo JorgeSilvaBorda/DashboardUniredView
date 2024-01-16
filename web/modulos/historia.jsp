@@ -116,7 +116,6 @@
             },
             success: function (response) {
                 var obj = JSON.parse(response);
-                console.log(obj);
                 pintarHistoria(obj, TIPOPROCESO);
             },
             error: function (a, b, c) {
@@ -230,40 +229,31 @@
             });
 
         } else if (tipoProceso === 'conciliacion') {
-            /*
-             tabla += "<thead><tr>";
-             tabla += "<th>ID Proceso</th>";
-             tabla += "<th>Cod Empresa</th>";
-             tabla += "<th>Empresa</th>";
-             tabla += "<th>Hora Ini</th>";
-             tabla += "<th>Hora Fin</th>";
-             tabla += "<th>Fecha Proceso</th>";
-             tabla += "<th>Fecha Término</th>";
-             tabla += "<th>Duración (mins.)</th>";
-             tabla += "<th>ID Estado</th>";
-             tabla += "<th>Estado</th>";
-             tabla += "</tr></thead><tbody>";
-             contenedor += tabla;
-             var optsTabla = OPCIONES_TABLA;
-             optsTabla.order = [[5, 'desc']]
-             
-             for (var i = 0; i < listado.length; i++) {
-             
-             contenedor += "<tr>";
-             contenedor += "<td>" + listado[i].idProceso + "</td>";
-             contenedor += "<td>" + listado[i].codEmpresa + "</td>";
-             contenedor += "<td>" + listado[i].nomEmpresa + "</td>";
-             contenedor += "<td>" + listado[i].horaIni + "</td>";
-             contenedor += "<td>" + listado[i].horaFin + "</td>";
-             contenedor += "<td>" + new Date(listado[i].fechaProceso).toISOString().substring(0, 19).replace("T", " ") + "</td>";
-             contenedor += "<td>" + new Date(listado[i].fechaTermino).toISOString().substring(0, 19).replace("T", " ") + "</td>";
-             contenedor += "<td>" + listado[i].minutos + "</td>";
-             contenedor += "<td>" + listado[i].idEstado + "</td>";
-             contenedor += "<td>" + listado[i].estado + "</td>";
-             contenedor += "</tr>";
-             }
-             
-             */
+            tabla += "<thead><tr>";
+            tabla += "<th>Fecha Proceso</th>";
+            tabla += "<th>Hora Inicio<br />Proceso</th>";
+            tabla += "<th>Id Estado<br />Inicial</th>";
+            tabla += "<th>Descripción<br />Inicial</th>";
+            tabla += "<th>Hora Fin</th>";
+            tabla += "<th>Id Estado<br />Final</th>";
+            tabla += "<th>Descripción<br />Final</th>";
+            tabla += "</tr></thead><tbody>";
+            contenedor += tabla;
+            var optsTabla = OPCIONES_TABLA;
+            optsTabla.order = [[0, 'desc']]
+
+
+            listado.map((proceso) => {
+                contenedor += "<tr>";
+                contenedor += "<td>" + proceso.fechaProceso + "</td>";
+                contenedor += "<td>" + proceso.horaIniProceso + "</td>";
+                contenedor += "<td>" + proceso.idEstadoIniProceso + "</td>";
+                contenedor += "<td>" + proceso.descEstadoIniProceso + "</td>";
+                contenedor += "<td>" + proceso.horaFinProceso + "</td>";
+                contenedor += "<td>" + proceso.idEstadoFinProceso + "</td>";
+                contenedor += "<td>" + proceso.descEstadoFinProceso + "</td>";
+                contenedor += "</tr>";
+            });
         }
 
 
