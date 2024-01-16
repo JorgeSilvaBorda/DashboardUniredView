@@ -80,7 +80,10 @@ public class NominasMapper extends HttpServlet {
 	    return new JSONObject(mensaje.toString());
 
 	} catch (Exception ex) {
+            System.out.println("No se puede obtener el objeto desde la URL (NominasMapper)");
+            System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
+            ex.printStackTrace();
 	    return new JSONObject();
 	}
     }
@@ -99,6 +102,10 @@ public class NominasMapper extends HttpServlet {
 	    return new JSONArray(mensaje.toString());
 
 	} catch (Exception ex) {
+            System.out.println("No se puede obtener el array desde la URL (NominasMapper)");
+            System.out.println("Ruta: " + ruta);
+	    System.out.println(ex);
+            ex.printStackTrace();
 	    return new JSONArray();
 	}
     }
@@ -127,7 +134,9 @@ public class NominasMapper extends HttpServlet {
 
 	} catch (Exception ex) {
 	    System.out.println("No se puede hacer post (RendicionesMapper)");
+            System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
+            ex.printStackTrace();
 	    return new JSONObject();
 	}
     }

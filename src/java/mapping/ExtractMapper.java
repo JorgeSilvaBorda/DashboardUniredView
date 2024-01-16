@@ -40,10 +40,10 @@ public class ExtractMapper extends HttpServlet {
 		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/ejecutados"));
 		break;
 	    case "extract-exitosas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/exitosos"));
+		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/dia/exitosos"));
 		break;
 	    case "extract-errores-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/errores"));
+		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/dia/errores"));
 		break;
 	    case "extract-pendientes-dia":
 		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/pendientes"));
@@ -68,7 +68,10 @@ public class ExtractMapper extends HttpServlet {
 	    return new JSONObject(mensaje.toString());
 
 	} catch (Exception ex) {
+            System.out.println("No se puede obtener el objeto desde la URL (ExtractMapper)");
+            System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
+            ex.printStackTrace();
 	    return new JSONObject();
 	}
     }
@@ -87,6 +90,10 @@ public class ExtractMapper extends HttpServlet {
 	    return new JSONArray(mensaje.toString());
 
 	} catch (Exception ex) {
+            System.out.println("No se puede obtener el array desde la URL (ExtractMapper)");
+            System.out.println("Ruta: " + ruta);
+            System.out.println(ex);
+            ex.printStackTrace();
 	    return new JSONArray();
 	}
     }
@@ -115,6 +122,7 @@ public class ExtractMapper extends HttpServlet {
 
 	} catch (Exception ex) {
 	    System.out.println("No se puede hacer post (ExtractMapper)");
+            System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
 	    return new JSONObject();
 	}
