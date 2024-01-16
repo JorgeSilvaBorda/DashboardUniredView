@@ -30,7 +30,7 @@
         }
     };
     $(document).ready(function () {
-        setDefaultDate()
+        setDefaultDate();
         var tipo = '<%=request.getParameter("tipo")%>';
 
         //Validar que el request tenga alguno de esos dos valores
@@ -40,7 +40,6 @@
         } else if (tipo === 'nominas') {
             TIPOPROCESO = 'nominas';
             $('#titulo-historia').html("Histórico de Nóminas");
-
         } else if (tipo === 'extract') {
             TIPOPROCESO = 'extract';
             $('#titulo-historia').html("Histórico de Extract");
@@ -117,6 +116,7 @@
             },
             success: function (response) {
                 var obj = JSON.parse(response);
+                console.log(obj);
                 pintarHistoria(obj, TIPOPROCESO);
             },
             error: function (a, b, c) {
@@ -202,40 +202,34 @@
                 contenedor += "</tr>";
             }
         } else if (tipoProceso === 'extract') {
-            /*
+           
             tabla += "<thead><tr>";
-            tabla += "<th>ID Proceso</th>";
-            tabla += "<th>Cod Empresa</th>";
-            tabla += "<th>Empresa</th>";
-            tabla += "<th>Hora Ini</th>";
-            tabla += "<th>Hora Fin</th>";
             tabla += "<th>Fecha Proceso</th>";
-            tabla += "<th>Fecha Término</th>";
-            tabla += "<th>Duración (mins.)</th>";
-            tabla += "<th>ID Estado</th>";
-            tabla += "<th>Estado</th>";
+            tabla += "<th>Hora Inicio<br />Proceso</th>";
+            tabla += "<th>Id Estado<br />Inicial</th>";
+            tabla += "<th>Descripción<br />Inicial</th>";
+            tabla += "<th>Hora Fin</th>";
+            tabla += "<th>Id Estado<br />Final</th>";
+            tabla += "<th>Descripción<br />Final</th>";
             tabla += "</tr></thead><tbody>";
             contenedor += tabla;
             var optsTabla = OPCIONES_TABLA;
-            optsTabla.order = [[5, 'desc']]
+            optsTabla.order = [[0, 'desc']]
 
             for (var i = 0; i < listado.length; i++) {
 
                 contenedor += "<tr>";
-                contenedor += "<td>" + listado[i].idProceso + "</td>";
-                contenedor += "<td>" + listado[i].codEmpresa + "</td>";
-                contenedor += "<td>" + listado[i].nomEmpresa + "</td>";
-                contenedor += "<td>" + listado[i].horaIni + "</td>";
-                contenedor += "<td>" + listado[i].horaFin + "</td>";
-                contenedor += "<td>" + new Date(listado[i].fechaProceso).toISOString().substring(0, 19).replace("T", " ") + "</td>";
-                contenedor += "<td>" + new Date(listado[i].fechaTermino).toISOString().substring(0, 19).replace("T", " ") + "</td>";
-                contenedor += "<td>" + listado[i].minutos + "</td>";
-                contenedor += "<td>" + listado[i].idEstado + "</td>";
-                contenedor += "<td>" + listado[i].estado + "</td>";
+                contenedor += "<td>" + listado[i].fechaProceso + "</td>";
+                contenedor += "<td>" + listado[i].horaIniProceso + "</td>";
+                contenedor += "<td>" + listado[i].idEstadoIniProceso + "</td>";
+                contenedor += "<td>" + listado[i].descEstadoIniProceso + "</td>";
+                contenedor += "<td>" + listado[i].horaFinProceso + "</td>";
+                contenedor += "<td>" + listado[i].idEstadoFinProceso + "</td>";
+                contenedor += "<td>" + listado[i].descEstadoFinProceso + "</td>";
                 contenedor += "</tr>";
             }
             
-            */
+            
         } else if (tipoProceso === 'conciliacion') {
             /*
             tabla += "<thead><tr>";
