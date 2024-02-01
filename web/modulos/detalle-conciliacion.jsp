@@ -79,7 +79,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Creación</th>'
                         + '<th>Hora Creación</th>'
@@ -90,7 +89,6 @@
                 procesos.map((proceso) => {
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + proceso.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + proceso.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + proceso.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + proceso.fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + proceso.horaCreacion + "</td>";
@@ -129,7 +127,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Proceso</th>'
                         + '<th>Hora Ini</th>'
@@ -143,7 +140,6 @@
 
                 tablaProgramadas += "<tr>"
                 tablaProgramadas += "<td>" + procesos.procesoInicio.idEmpresa + "</td>";
-                tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
                 tablaProgramadas += "<td>" + procesos.procesoInicio.nombreEps + "</td>";
                 tablaProgramadas += "<td>" + procesos.procesoInicio.fechaCreacion + "</td>";
                 tablaProgramadas += "<td>" + procesos.procesoInicio.horaCreacion + "</td>";
@@ -182,7 +178,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Proceso</th>'
                         + '<th>Hora Ini</th>'
@@ -195,7 +190,6 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos.procesoInicio.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.horaCreacion + "</td>";
@@ -233,7 +227,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Proceso</th>'
                         + '<th>Hora Ini</th>'
@@ -247,7 +240,6 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos.procesoInicio.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.horaCreacion + "</td>";
@@ -286,7 +278,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Creación</th>'
                         + '<th>Hora Creación</th>'
@@ -297,7 +288,6 @@
                 procesos.map((proceso) => {
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + proceso.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + proceso.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + proceso.nomEps + "</td>";
                     tablaProgramadas += "<td>" + proceso.fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + proceso.horaCreacion + "</td>";
@@ -308,7 +298,6 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].nomEps + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].horaCreacion + "</td>";

@@ -34,10 +34,6 @@
     function procesarDetalle() {
         var tipo = '<%=request.getParameter("tipo")%>';
         switch (tipo) {
-            case "programadas":
-                $('#titulo-detalle-extract').html("Detalle extract programados");
-                procesarProgramadas();
-                break;
             case "ejecutadas":
                 $('#titulo-detalle-extract').html("Detalle extract ejecutados");
                 procesarEjecutadas();
@@ -61,141 +57,6 @@
         }
     }
 
-    function procesarProgramadas() {
-
-        var datos = {
-            tipo: 'nominas-programadas-dia'
-        };
-        $.ajax({
-            type: 'POST',
-            url: 'NominasMapper',
-            data: {
-                datos: JSON.stringify(datos)
-            },
-            success: function (response) {
-                var procesos = JSON.parse(response);
-                var tablaProgramadas = TAB
-                        + '<thead>'
-                        + '<tr>'
-                        + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
-                        + '<th>Empresa</th>'
-                        + '<th>Hora Ini</th>'
-                        + '<th>Hora Fin</th>'
-                        + '<th>Fecha Proceso</th>'
-                        + '<th>Fecha Termino</th>'
-                        + '<th>Minutos</th>'
-                        + '<th>ID Estado</th>'
-                        + '<th>Estado</th>'
-                        + '</tr>'
-                        + '</thead>'
-                        + '<tbody>';
-
-                for (var i = 0; i < procesos.length; i++) {
-
-                    tablaProgramadas += "<tr>"
-                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].codEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].nomEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].horaIni + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].horaFin + "</td>";
-                    if (procesos[i].estado === null) {
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                    } else {
-                        tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
-                        tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaTermino, "-") + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].minutos + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].idEstado + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
-                    }
-
-                    tablaProgramadas += "</tr>"
-                }
-                tablaProgramadas += "</tbody></table>"
-                $('#div-tabla').html(tablaProgramadas);
-                var optsTabla = OPCIONES_TABLA;
-                optsTabla.order = [[1, 'asc']]
-                $('#cont-tabla').DataTable(optsTabla);
-            },
-            error: function (a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
-            }
-        });
-
-    }
-
-    function procesarEjecutadas() {
-
-        var datos = {
-            tipo: "nominas-ejecutadas-dia"
-        };
-        $.ajax({
-            type: 'POST',
-            url: "NominasMapper",
-            data: {
-                datos: JSON.stringify(datos)
-            },
-            success: function (response) {
-                var procesos = JSON.parse(response);
-                var tablaProgramadas = TAB
-                        + '<thead>'
-                        + '<tr>'
-                        + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
-                        + '<th>Empresa</th>'
-                        + '<th>Hora Ini</th>'
-                        + '<th>Hora Fin</th>'
-                        + '<th>Fecha Proceso</th>'
-                        + '<th>Fecha Termino</th>'
-                        + '<th>Minutos</th>'
-                        + '<th>ID Estado</th>'
-                        + '<th>Estado</th>'
-                        + '</tr>'
-                        + '</thead>'
-                        + '<tbody>';
-
-                for (var i = 0; i < procesos.length; i++) {
-
-                    tablaProgramadas += "<tr>"
-                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].codEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].nomEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].horaIni + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].horaFin + "</td>";
-                    if (procesos[i].estado === null) {
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                        tablaProgramadas += "<td></td>";
-                    } else {
-                        tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaProceso, "-") + "</td>";
-                        tablaProgramadas += "<td>" + dateTimeToLocalDate(procesos[i].fechaTermino, "-") + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].minutos + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].idEstado + "</td>";
-                        tablaProgramadas += "<td>" + procesos[i].estado + "</td>";
-                    }
-
-                    tablaProgramadas += "</tr>"
-                }
-                tablaProgramadas += "</tbody></table>"
-                $('#div-tabla').html(tablaProgramadas);
-                $('#cont-tabla').DataTable(OPCIONES_TABLA);
-            },
-            error: function (a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
-            }
-        });
-    }
-
     function procesarExitosas() {
 
         var datos = {
@@ -213,7 +74,7 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
+                        //+ '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Hora Ini</th>'
                         + '<th>Hora Fin</th>'
@@ -227,7 +88,7 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos.procesoInicio.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
+                    //tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.horaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoFin.horaCreacion + "</td>";
@@ -266,7 +127,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Hora Ini</th>'
                         + '<th>Hora Fin</th>'
@@ -281,7 +141,6 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos.procesoInicio.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos.procesoInicio.codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoInicio.horaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos.procesoFin.horaCreacion + "</td>";
@@ -321,7 +180,6 @@
                         + '<thead>'
                         + '<tr>'
                         + '<th>ID Empresa</th>'
-                        + '<th>Cod Empresa</th>'
                         + '<th>Empresa</th>'
                         + '<th>Fecha Creación</th>'
                         + '<th>Hora Creación</th>'
@@ -333,7 +191,6 @@
 
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].codEmpresa + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].nomEps + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + procesos[i].horaCreacion + "</td>";
