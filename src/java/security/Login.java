@@ -51,7 +51,6 @@ public class Login extends HttpServlet {
     }
 
     private JSONObject login(JSONObject json, HttpServletRequest request) {
-	
 	String userName = json.getString("userName");
 	String password = json.getString("password");
 	JSONObject salida = new JSONObject();
@@ -59,8 +58,6 @@ public class Login extends HttpServlet {
 	//primero validar si el usuario está permitido
 	
 	JSONObject login = getObjectFromUrl("http://0.0.0.0:8082/usuario/" + userName);
-	System.out.println("http://0.0.0.0:8082/usuario/" + userName);
-	System.out.println(login);
 	if(!login.getString("login").equals(userName)){
 	    salida.put("status", "loginInvalido");
 	    return salida;
@@ -68,10 +65,9 @@ public class Login extends HttpServlet {
 	
 	
 	//Luego validar con LDAP contra Active Directory
-
+	System.out.println("Va a LDAP");
 	LdapProtocol ldap = new LdapProtocol("DASHBOARD_AD_HOST", "DASHBOARD_AD_OU", "DASHBOARD_AD_DC_1", "DASHBOARD_AD_DC_2");
 	JSONObject usuario = ldap.getUserInfo(userName, password);
-	System.out.println(usuario);
 	
 	if (usuario.getString("estadoLogin").equals("success")) {
 	    HttpSession session = request.getSession();
@@ -80,9 +76,10 @@ public class Login extends HttpServlet {
 	    session.setAttribute("nombre", usuario.getString("nombre"));
 	    session.setAttribute("apellido", usuario.getString("apellido"));
 	    session.setAttribute("login", usuario.getString("login"));
-	    System.out.println(usuario);
+	    System.out.println("Usuario valido");
 	    salida.put("status", "ok");
 	}else{
+	    System.out.println("Usuario invalido");
 	    salida.put("status", "loginInvalido");
 	}
 	System.out.println(salida);
