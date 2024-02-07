@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import util.json.JSONArray;
 import util.json.JSONObject;
 
@@ -24,7 +25,7 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class HistoriaMapper extends HttpServlet {
-   
+    private static Map<String, String> entorno = System.getenv();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	JSONObject datos = new JSONObject(request.getParameter("datos"));
@@ -32,7 +33,7 @@ public class HistoriaMapper extends HttpServlet {
 
 	switch (datos.getString("tipo")) {
 	    case "historia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/historico/" + datos.getString("proceso") + "/" + datos.getString("fechaDesde") + "/" + datos.getString("fechaHasta")));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/historico/" + datos.getString("proceso") + "/" + datos.getString("fechaDesde") + "/" + datos.getString("fechaHasta")));
 		break;
 	    default:
 		out.print("{}");

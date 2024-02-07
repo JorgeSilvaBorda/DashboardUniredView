@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import util.json.JSONArray;
 import util.json.JSONObject;
 
@@ -23,7 +24,7 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class ExtractMapper extends HttpServlet {
-
+    private static Map<String, String> entorno = System.getenv();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject datos = new JSONObject(request.getParameter("datos"));
@@ -31,22 +32,22 @@ public class ExtractMapper extends HttpServlet {
         
         switch (datos.getString("tipo")) {
 	    case "resumen-extract":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/resumen"));
+		out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/resumen"));
 		break;
 	    case "extract-programadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/dia/"));
 		break;
 	    case "extract-ejecutadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/ejecutados"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/dia/ejecutados"));
 		break;
 	    case "extract-exitosas-dia":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/dia/exitosos"));
+		out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/dia/exitosos"));
 		break;
 	    case "extract-errores-dia":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoextract/dia/errores"));
+		out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/dia/errores"));
 		break;
 	    case "extract-pendientes-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoextract/dia/pendientes"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoextract/dia/pendientes"));
 		break;
 	    default:
 		out.print("{}");

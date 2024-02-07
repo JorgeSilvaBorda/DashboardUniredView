@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import util.json.JSONArray;
 import util.json.JSONObject;
 
@@ -23,7 +24,7 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class ConciliacionMapper extends HttpServlet {
-
+    private static Map<String, String> entorno = System.getenv();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject datos = new JSONObject(request.getParameter("datos"));
@@ -31,22 +32,22 @@ public class ConciliacionMapper extends HttpServlet {
 
         switch (datos.getString("tipo")) {
             case "resumen-conciliacion":
-                out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/resumen"));
+                out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/resumen"));
                 break;
             case "conciliacion-programadas-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/programadas"));
+                out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/programadas"));
                 break;
             case "conciliacion-ejecutadas-dia":
-                out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/ejecutados"));
+                out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/ejecutados"));
                 break;
             case "conciliacion-exitosas-dia":
-                out.print(getObjectFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/exitosos"));
+                out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/exitosos"));
                 break;
             case "conciliacion-errores-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/errores"));
+                out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/errores"));
                 break;
             case "conciliacion-pendientes-dia":
-                out.print(getArrayFromUrl("http://0.0.0.0:8082/procesoconciliacion/dia/pendientes"));
+                out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/pendientes"));
                 break;
             default:
                 out.print("{}");
