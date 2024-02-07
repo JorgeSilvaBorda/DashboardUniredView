@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import util.json.JSONArray;
 import util.json.JSONObject;
 
@@ -23,7 +24,7 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class NominasMapper extends HttpServlet {
-
+    private static Map<String, String> entorno = System.getenv();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	JSONObject datos = new JSONObject(request.getParameter("datos"));
@@ -31,34 +32,34 @@ public class NominasMapper extends HttpServlet {
 
 	switch (datos.getString("tipo")) {
 	    case "resumen-nominas":
-		out.print(getObjectFromUrl("http://0.0.0.0:8082/procesonominas/resumen"));
+		out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/resumen"));
 		break;
 	    case "nominas-programadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/"));
 		break;
 	    case "nominas-ejecutadas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/ejecutados"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/ejecutados"));
 		break;
 	    case "nominas-exitosas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/exitosos"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/exitosos"));
 		break;
 	    case "nominas-errores-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/errores"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/errores"));
 		break;
 	    case "nominas-pendientes-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/pendientes"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/pendientes"));
 		break;
 	    case "nominas-no-recibidas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/norecibidas"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/norecibidas"));
 		break;
 	    case "nominas-sin-procesar-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/sinprocesar"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/sinprocesar"));
 		break;
 	    case "nominas-parcialmente-recibidas-dia":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/parcialmente"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/parcialmente"));
 		break;
 	    case "nominas-nocumple-headerfooter":
-		out.print(getArrayFromUrl("http://0.0.0.0:8082/procesonominas/dia/nocumple"));
+		out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesonominas/dia/nocumple"));
 		break;
 	    default:
 		out.print("{}");
