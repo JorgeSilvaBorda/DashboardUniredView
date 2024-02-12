@@ -223,6 +223,7 @@
             },
             success: function (response) {
                 var procesos = JSON.parse(response);
+		console.log(procesos);
                 var tablaProgramadas = TAB
                         + '<thead>'
                         + '<tr>'
@@ -288,22 +289,12 @@
                 procesos.map((proceso) => {
                     tablaProgramadas += "<tr>"
                     tablaProgramadas += "<td>" + proceso.idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + proceso.nomEps + "</td>";
+                    tablaProgramadas += "<td>" + proceso.nombreEps + "</td>";
                     tablaProgramadas += "<td>" + proceso.fechaCreacion + "</td>";
                     tablaProgramadas += "<td>" + proceso.horaCreacion + "</td>";
-                    tablaProgramadas += "<td> - </td>";
                     tablaProgramadas += "</tr>"
                 });
-                for (var i = 0; i < procesos.length; i++) {
 
-                    tablaProgramadas += "<tr>"
-                    tablaProgramadas += "<td>" + procesos[i].idEmpresa + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].nomEps + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].fechaCreacion + "</td>";
-                    tablaProgramadas += "<td>" + procesos[i].horaCreacion + "</td>";
-                    tablaProgramadas += "<td> - </td>";
-                    tablaProgramadas += "</tr>"
-                }
                 tablaProgramadas += "</tbody></table>"
                 $('#div-tabla').html(tablaProgramadas);
                 $('#cont-tabla').DataTable(OPCIONES_TABLA);

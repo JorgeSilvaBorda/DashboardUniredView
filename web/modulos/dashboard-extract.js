@@ -39,7 +39,7 @@ function getResumen() {
                     }
                 }
                 porcentajeEjecucion = ((resumen.programadosHoy * 100) / ejecutados);
-                if (isNaN(porcentajeEjecucion)) {
+                if (isNaN(porcentajeEjecucion) || porcentajeEjecucion === Infinity) {
                     porcentajeEjecucion = 0.00;
                 }
                 
@@ -149,7 +149,7 @@ function actualizar() {
                     }
                 }
                 porcentajeEjecucion = ((resumen.programadosHoy * 100) / ejecutados);
-                if (isNaN(porcentajeEjecucion)) {
+                if (isNaN(porcentajeEjecucion) || porcentajeEjecucion === Infinity) {
                     porcentajeEjecucion = 0.00;
                 }
                 

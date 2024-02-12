@@ -44,7 +44,7 @@ public class ConciliacionMapper extends HttpServlet {
                 out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/exitosos"));
                 break;
             case "conciliacion-errores-dia":
-                out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/errores"));
+                out.print(getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/errores"));
                 break;
             case "conciliacion-pendientes-dia":
                 out.print(getArrayFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/procesoconciliacion/dia/pendientes"));
@@ -87,6 +87,7 @@ public class ConciliacionMapper extends HttpServlet {
             StringBuilder mensaje = new StringBuilder();
             while ((linea = reader.readLine()) != null) {
                 mensaje.append(linea);
+		System.out.println(mensaje  );
             }
             return new JSONArray(mensaje.toString());
 
