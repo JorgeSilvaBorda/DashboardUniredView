@@ -26,7 +26,7 @@ import util.json.JSONObject;
  */
 public class NotificacionesMapper extends HttpServlet {
     
-    private final String IP_BACKEND_NOTIFICACIONES = Parametros.PRD_IP_BACKEND_NOTIFICACIONES;
+    private final String IP_BACKEND_NOTIFICACIONES = Parametros.DEV_IP_BACKEND_NOTIFICACIONES;
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
