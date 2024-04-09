@@ -87,7 +87,7 @@ function getNotificacionesProceso() {
 		    grupoIdes.idesConciliacion.push(notificacion._id);
 		});
 	    }
-
+	    
 	    //Mostrar modal de notificaciones
 	    if ((notifResponse.notificacionesNominas !== undefined && notifResponse.notificacionesNominas.length > 0) ||
 		    (notifResponse.notificacionesRendiciones !== undefined && notifResponse.notificacionesRendiciones.length > 0) ||
@@ -248,7 +248,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.extract.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.extract.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.extract.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.extract.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.extract.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.extract.mensaje + "</td>";
 		tabla += "<td>" + notificacion.extract.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.extract.descripcion + "</td>";
@@ -280,7 +280,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.extract.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.extract.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.extract.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.extract.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.extract.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.extract.mensaje + "</td>";
 		tabla += "<td>" + notificacion.extract.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.extract.descripcion + "</td>";
@@ -312,7 +312,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.extract.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.extract.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.extract.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.extract.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.extract.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.extract.mensaje + "</td>";
 		tabla += "<td>" + notificacion.extract.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.extract.descripcion + "</td>";
@@ -344,7 +344,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.extract.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.extract.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.extract.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.extract.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.extract.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.extract.mensaje + "</td>";
 		tabla += "<td>" + notificacion.extract.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.extract.descripcion + "</td>";
@@ -376,7 +376,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.extract.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.extract.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.extract.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.extract.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.extract.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.extract.mensaje + "</td>";
 		tabla += "<td>" + notificacion.extract.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.extract.descripcion + "</td>";
@@ -409,7 +409,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "</tr>";
 		tabla += "</thead><tbody>";
 		tabla += "<tr>";
-		tabla += "<td>El proceso de Conciliación no se inició en el horario esperado: 02:20:00 - 02:25:59</td>";
+		tabla += "<td>El proceso de Conciliación no se inició en el horario esperado: 01:20:00 - 01:25:59</td>";
 		tabla += "<td>" + notificacion.fechaNotificacion + "</td>";
 		tabla += "</tr>";
 		tabla += "</tbody>";
@@ -439,7 +439,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.conciliacion.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.mensaje + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.descripcion + "</td>";
@@ -471,7 +471,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.conciliacion.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.mensaje + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.descripcion + "</td>";
@@ -503,7 +503,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.conciliacion.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.mensaje + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.descripcion + "</td>";
@@ -535,7 +535,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.conciliacion.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.mensaje + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.descripcion + "</td>";
@@ -567,7 +567,7 @@ function modalNotificaciones(notificaciones) {
 		tabla += "<td>" + notificacion.conciliacion.idLogSistema + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idEmpresa + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.nombreEps + "</td>";
-		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion + "</td>";
+		tabla += "<td>" + notificacion.conciliacion.fechaHoraCreacion.replace("T", " ").substring(0, 19) + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.mensaje + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.idTipoLog + "</td>";
 		tabla += "<td>" + notificacion.conciliacion.descripcion + "</td>";

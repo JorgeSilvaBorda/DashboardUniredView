@@ -97,6 +97,7 @@ public class Login extends HttpServlet {
     }
 
     private JSONObject getObjectFromUrl(String ruta) {
+	System.out.println(ruta);
 	try {
 	    URL url = new URL(ruta);
 	    HttpURLConnection con = (HttpURLConnection) url.openConnection();
