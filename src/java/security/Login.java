@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import mapping.RendicionesMapper;
+import java.util.Map;
 import util.json.JSONObject;
 
 /**
@@ -23,6 +23,8 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class Login extends HttpServlet {
+
+    private static Map<String, String> entorno = System.getenv();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -51,38 +53,34 @@ public class Login extends HttpServlet {
     }
 
     private JSONObject login(JSONObject json, HttpServletRequest request) {
-	
 	String userName = json.getString("userName");
 	String password = json.getString("password");
 	JSONObject salida = new JSONObject();
-	
+
 	//primero validar si el usuario está permitido
-	
-	JSONObject login = getObjectFromUrl("http://0.0.0.0:8082/usuario/" + userName);
-	System.out.println("http://0.0.0.0:8082/usuario/" + userName);
-	System.out.println(login);
-	if(!login.getString("login").equals(userName)){
+	System.out.println("IP Backend aplicacion: " + entorno.get("BACKEND_APLICACION"));
+	JSONObject login = getObjectFromUrl("http://" + entorno.get("BACKEND_APLICACION") + ":" + entorno.get("BACKEND_APLICACION_PORT") + "/usuario/" + userName);
+	if (!login.getString("login").equals(userName)) {
 	    salida.put("status", "loginInvalido");
 	    return salida;
 	}
-	
-	
-	//Luego validar con LDAP contra Active Directory
 
+	//Luego validar con LDAP contra Active Directory
+	System.out.println("Va a LDAP");
 	LdapProtocol ldap = new LdapProtocol("DASHBOARD_AD_HOST", "DASHBOARD_AD_OU", "DASHBOARD_AD_DC_1", "DASHBOARD_AD_DC_2");
 	JSONObject usuario = ldap.getUserInfo(userName, password);
-	System.out.println(usuario);
-	
+
 	if (usuario.getString("estadoLogin").equals("success")) {
 	    HttpSession session = request.getSession();
-	    
+
 	    session.setAttribute("userName", userName);
 	    session.setAttribute("nombre", usuario.getString("nombre"));
 	    session.setAttribute("apellido", usuario.getString("apellido"));
 	    session.setAttribute("login", usuario.getString("login"));
-	    System.out.println(usuario);
+	    System.out.println("Usuario valido");
 	    salida.put("status", "ok");
-	}else{
+	} else {
+	    System.out.println("Usuario invalido");
 	    salida.put("status", "loginInvalido");
 	}
 	System.out.println(salida);
@@ -97,21 +95,22 @@ public class Login extends HttpServlet {
 	salida.put("status", "ok");
 	return salida;
     }
-    
-    private JSONObject getObjectFromUrl(String ruta){
-	try{
+
+    private JSONObject getObjectFromUrl(String ruta) {
+	System.out.println(ruta);
+	try {
 	    URL url = new URL(ruta);
-	    HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	    HttpURLConnection con = (HttpURLConnection) url.openConnection();
 	    con.setRequestMethod("GET");
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 	    String linea;
 	    StringBuilder mensaje = new StringBuilder();
-	    while((linea = reader.readLine()) != null){
+	    while ((linea = reader.readLine()) != null) {
 		mensaje.append(linea);
 	    }
 	    return new JSONObject(mensaje.toString());
-	    
-	}catch (Exception ex) {
+
+	} catch (Exception ex) {
 	    System.out.println(ex);
 	    ex.printStackTrace();
 	    return new JSONObject();

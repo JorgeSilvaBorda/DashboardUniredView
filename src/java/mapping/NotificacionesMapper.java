@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import util.Parametros;
 import util.json.JSONArray;
 import util.json.JSONObject;
 
@@ -24,6 +25,8 @@ import util.json.JSONObject;
  * @author jsilvab
  */
 public class NotificacionesMapper extends HttpServlet {
+    
+    private final String IP_BACKEND_NOTIFICACIONES = Parametros.DEV_IP_BACKEND_NOTIFICACIONES;
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,11 +35,11 @@ public class NotificacionesMapper extends HttpServlet {
 
 	switch (datos.getString("tipo")) {
 	    case "notificaciones":
-		out.print(getObjectFromUrl("http://0.0.0.0:8182/notificaciones/noleidas"));
+		out.print(getObjectFromUrl("http://" + IP_BACKEND_NOTIFICACIONES + ":8182/notificaciones/noleidas"));
 		break;
 	    case "notificaciones-marcar-leidas":
 		System.out.println("Entra a marcar leídas en mapper Servlet");
-		out.print(postObject("http://0.0.0.0:8182/notificaciones/marcarleido", datos.getJSONObject("ides").toString()));
+		out.print(postObject("http://" + IP_BACKEND_NOTIFICACIONES + ":8182/notificaciones/marcarleido", datos.getJSONObject("ides").toString()));
 		break;
 	    default:
 		out.print("{}");
@@ -58,7 +61,10 @@ public class NotificacionesMapper extends HttpServlet {
 	    return new JSONObject(mensaje.toString());
 
 	} catch (Exception ex) {
+	    System.out.println("No se puede obtener el objeto desde la URL (NotificacionesMapper)");
+            System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
+            //ex.printStackTrace();
 	    return new JSONObject();
 	}
     }
@@ -77,6 +83,10 @@ public class NotificacionesMapper extends HttpServlet {
 	    return new JSONArray(mensaje.toString());
 
 	} catch (Exception ex) {
+            System.out.println("No se puede obtener el array desde la URL (NotificacionesMapper)");
+            System.out.println("Ruta: " + ruta);
+	    System.out.println(ex);
+            //ex.printStackTrace();
 	    return new JSONArray();
 	}
     }
@@ -104,8 +114,10 @@ public class NotificacionesMapper extends HttpServlet {
 	    }
 
 	} catch (Exception ex) {
-	    System.out.println("No se puede hacer post (RendicionesMapper)");
+	    System.out.println("No se puede hacer post (NotificacionesMapper)");
+	    System.out.println("Ruta: " + ruta);
 	    System.out.println(ex);
+            //ex.printStackTrace();
 	    return new JSONObject();
 	}
     }
